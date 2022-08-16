@@ -1,0 +1,21 @@
+{
+  "images" : [
+    {
+      "filename" : "WWDC-2019-Wallpaper-AR72014-iPhone-v3-Black.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

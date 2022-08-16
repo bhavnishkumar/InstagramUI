@@ -1,0 +1,21 @@
+{
+  "images" : [
+    {
+      "filename" : "assam-india-march-apple-developer-logo-phone-screen-stock-image-assam-india-march-apple-developer-logo-phone-screen-stock-214820382.jpeg",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

@@ -1,0 +1,57 @@
+{
+    "userprofile": {
+        "isOtherProfile":true,
+        "isFollow":false,
+        "userId": "1030",
+        "username":"its_ur_bhuvi",
+        "fullname": "Bhavnish kumar iOS Developer",
+        "bio": "🙋🏻‍♂️ Turning ideas into apps since 2019\n💸 Vision: live free \n⚒ Follow the journey \n👨🏻‍💻#iosdev #iosdev #coding",
+        "caption":"Software Engineer at Appinventiv",
+        "link": "https://github.com/bhavnishkumar",
+        "bluetick_enable":false,
+        "phoneNumber": "408-1234567",
+        "emailAddress": "kumarbhavnish96@gmail.com",
+
+        "posts":"30",
+        "followers":"90k",
+        "following":"80",
+        
+        "hightlights": [
+            {
+                "hightlightText":"15 August",
+                "hightlightImg": "img1"
+            },
+            {
+                "hightlightText":"Self Learning",
+                "hightlightImg": "img2"
+            },
+            {
+                "hightlightText":"New Feature",
+                "hightlightImg": "img3"
+            },
+            {
+                "hightlightText":"Books",
+                "hightlightImg": "img4"
+            },
+            {
+                "hightlightText":"Tips & Tricks",
+                "hightlightImg": "img5"
+            },
+            {
+                "hightlightText":"Eventkit",
+                "hightlightImg": "img6"
+            },
+            {
+                "hightlightText":"Swiftui 4.0",
+                "hightlightImg": "img7"
+            },
+            {
+                "hightlightText":"Swiftui 2.0",
+                "hightlightImg": "img8"
+            }
+        ]
+        
+        
+    }
+}
+
