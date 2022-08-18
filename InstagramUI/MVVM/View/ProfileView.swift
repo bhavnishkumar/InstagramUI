@@ -7,20 +7,28 @@
 
 import SwiftUI
 
+struct InnerContentSize: PreferenceKey {
+    typealias Value = [CGRect]
+    
+    static var defaultValue: [CGRect] = []
+    static func reduce(value: inout [CGRect], nextValue: () -> [CGRect]) {
+        value.append(contentsOf: nextValue())
+    }
+}
+
 struct ProfileView: View {
     
     @ObservedObject var viewModel = ProfileViewModel()
     @State var selectedTab:Int = 0 //selected tab
-    @State var selectedTabImg:String = "pixels" //selected tab
     @Namespace var animation
     let posts = ["bed.double.fill","tram.fill","tv.music.note.fill","hare.fill"]
     
     @Environment(\.colorScheme) var colorScheme
-
+    
     @State private var index: Int = 0
     @State private var offset: CGFloat = 0
-    
     @State private var stickyHeaderOffset: CGFloat = 0
+    
     
     
     
@@ -39,6 +47,7 @@ struct ProfileView: View {
                     .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
                     .background((self.viewModel.userprofile?.isFollow ?? false) ?  Color.gray.opacity(0.2) :  .blue )
                     .cornerRadius(8)
+                    .animation(.easeInOut(duration: 1))
                 
                 Button(action: {}) {
                     Text("Message")
@@ -187,17 +196,14 @@ struct ProfileView: View {
                     Image(uiImage: UIImage.init(named: "hamburger")!)
                         .font(.largeTitle)
                         .foregroundColor(.primary)
-                      
+                    
                     
                     
                 }
-                
-                
-                
             }.padding([.horizontal,.top])
             
             
-            Spacer(minLength: 0)
+            //            Spacer(minLength: 0)
             Divider().padding(.top)
             
             
@@ -209,6 +215,7 @@ struct ProfileView: View {
                     }
                 }
                 return Color.clear
+                
             }.frame(width: 0, height: 0)
             
             
@@ -223,17 +230,7 @@ struct ProfileView: View {
                             .resizable()
                             .aspectRatio( contentMode: .fill)
                             .frame(width: 80, height: 80)
-                            .cornerRadius(40) // Outer corner radius
-                        //                                .overlay(
-                        //                                    Image(systemName: "plus")
-                        //                                        .foregroundColor(.white)
-                        //                                        .padding(6)
-                        //                                        .clipShape(Circle())
-                        //                                        .padding(2)
-                        //                                        .background(Color.blue)
-                        //                                        .clipShape(Circle())
-                        //                                        .offset(x: 30, y: 30)
-                        //                                )
+                            .cornerRadius(40)
                             .shadow(radius: 2)
                     }
                     
@@ -326,18 +323,18 @@ struct ProfileView: View {
                     return AnyView(
                         HStack(spacing:0){
                             
-                            TabbarButton(image: "pixels", isSystemImage: false, animatation: animation,selectedTabIMG: $selectedTabImg) {
+                            TabbarButton(image: "pixels", isSystemImage: false, animatation: animation,index: 0,selectedTabIndex: $selectedTab) {
                                 selectedTab = 0
                             }
-                            TabbarButton(image: "video", isSystemImage: false, animatation: animation,selectedTabIMG: $selectedTabImg) {
+                            TabbarButton(image: "video", isSystemImage: false, animatation: animation,index: 1,selectedTabIndex: $selectedTab) {
                                 selectedTab = 1
                             }
-                            TabbarButton(image: "person.crop.square", isSystemImage: true, animatation: animation,selectedTabIMG: $selectedTabImg) {
+                            TabbarButton(image: "person.crop.square", isSystemImage: true, animatation: animation,index:2,selectedTabIndex: $selectedTab) {
                                 selectedTab = 2
                             }
                             
                         }.frame( height: 45,alignment: .bottom)
-                            .background(Colors.Background.contentDefaultColor)
+                            .background(Colors.backrground.contentDefaultColor)
                             .offset(y: offset < 0 ? -offset : 0)
                     )
                     
@@ -346,159 +343,132 @@ struct ProfileView: View {
                 
                 
                 
-                VStack{
-                    LazyVGrid(columns:  [
-                        GridItem(.flexible()),
-                        GridItem(.flexible()),
-                        GridItem(.flexible())
-                    ], spacing: 5) {
-                        
-                        
-                        ForEach(1...15 ,id: \.self){index in
-                            
-                            GeometryReader{proxy in
-                                
-                                let width = proxy.frame(in: .global).width
-                                let image =  "post\(index)"
-                                Image(image)
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fill)
-                                    .frame(width: width, height: selectedTab != 1 ? width : 180)
-                                    .cornerRadius(3)
-                                
-                                
-                            }.frame(height: selectedTab != 1 ? 120 : 180)
-                            
-                            
-                            
-                        }
-                        
-                    }.padding(8)
-                    .frame(width: UIScreen.main.bounds.width)
-                       
-                }
-                
-                
-                
-                // Lazygrid view Post /reels / tags
-                //                ZStack{
-                //
-                //                    GeometryReader { geometry in
-                //                        ScrollView(){
-                //                            HStack{
+                //                VStack{
+                //                    LazyVGrid(columns:  [
+                //                        GridItem(.flexible()),
+                //                        GridItem(.flexible()),
+                //                        GridItem(.flexible())
+                //                    ], spacing: 5) {
                 //
                 //
-                //                                VStack{
-                //                                    LazyVGrid(columns:  [
-                //                                        GridItem(.flexible()),
-                //                                        GridItem(.flexible()),
-                //                                        GridItem(.flexible())
-                //                                    ], spacing: 5) {
+                //                        ForEach(1...15 ,id: \.self){index in
+                //
+                //                            GeometryReader{proxy in
+                //
+                //                                let width = proxy.frame(in: .global).width
+                //                                let image =  "post\(index)"
+                //                                Image(image)
+                //                                    .resizable()
+                //                                    .aspectRatio(contentMode: .fill)
+                //                                    .frame(width: width, height: selectedTab != 1 ? width : 180)
+                //                                    .cornerRadius(3)
                 //
                 //
-                //                                        ForEach(1...15 ,id: \.self){index in
-                //
-                //                                            GeometryReader{proxy in
-                //
-                //                                                let width = proxy.frame(in: .global).width
-                //                                                let image =  "post\(index)"
-                //                                                Image(image)
-                //                                                    .resizable()
-                //                                                    .aspectRatio(contentMode: .fill)
-                //                                                    .frame(width: width, height: selectedTab != 1 ? width : 180)
-                //                                                    .cornerRadius(3)
+                //                            }.frame(height: selectedTab != 1 ? 120 : 180)
                 //
                 //
-                //                                            }.frame(height: selectedTab != 1 ? 120 : 180)
                 //
+                //                        }
                 //
-                //                                        }
+                //                    }.padding(8)
+                //                    .frame(width: UIScreen.main.bounds.width)
                 //
-                //                                    }.frame(width: UIScreen.main.bounds.width)
-                //                                }
-                //                                VStack{
-                //                                    LazyVGrid(columns:  [
-                //                                        GridItem(.flexible()),
-                //                                        GridItem(.flexible()),
-                //                                        GridItem(.flexible())
-                //                                    ], spacing: 5) {
-                //
-                //
-                //                                        ForEach(1...15 ,id: \.self){index in
-                //
-                //                                            GeometryReader{proxy in
-                //
-                //                                                let width = proxy.frame(in: .global).width
-                //                                                let image =  "post\(index)"
-                //                                                Image(image)
-                //                                                    .resizable()
-                //                                                    .aspectRatio(contentMode: .fill)
-                //                                                    .frame(width: width, height: selectedTab != 1 ? width : 180)
-                //                                                    .cornerRadius(3)
-                //
-                //
-                //                                            }.frame(height: selectedTab != 1 ? 120 : 180)
-                //
-                //
-                //                                        }
-                //
-                //                                    }.frame(width: UIScreen.main.bounds.width)
-                //                                }
-                //
-                //                                VStack{
-                //                                    LazyVGrid(columns:  [
-                //                                        GridItem(.flexible()),
-                //                                        GridItem(.flexible()),
-                //                                        GridItem(.flexible())
-                //                                    ], spacing: 5) {
-                //
-                //
-                //                                        ForEach(1...15 ,id: \.self){index in
-                //
-                //                                            GeometryReader{proxy in
-                //
-                //                                                let width = proxy.frame(in: .global).width
-                //                                                let image =  "post\(index)"
-                //                                                Image(image)
-                //                                                    .resizable()
-                //                                                    .aspectRatio(contentMode: .fill)
-                //                                                    .frame(width: width, height: selectedTab != 1 ? width : 180)
-                //                                                    .cornerRadius(3)
-                //
-                //
-                //                                            }.frame(height: selectedTab != 1 ? 120 : 180)
-                //
-                //
-                //                                        }
-                //
-                //                                    }.frame(width: UIScreen.main.bounds.width)
-                //
-                //                                }
-                //                            }
-                //                        }.content.offset(x: self.offset)
-                //                            .frame(width: geometry.size.width, height: nil, alignment: .leading)
-                //                            .gesture(DragGesture()
-                //                                        .onChanged({ value in
-                //                                self.offset = value.translation.width - geometry.size.width * CGFloat(self.index)
-                //                            })
-                //                                        .onEnded({ value in
-                //                                if abs(value.predictedEndTranslation.width) >= geometry.size.width / 2 {
-                //                                    var nextIndex: Int = (value.predictedEndTranslation.width < 0) ? 1 : -1
-                //                                    nextIndex += self.index
-                //                                    self.index = nextIndex.keepIndexInRange(min: 0, max: 3 - 1)
-                //                                }
-                //                                withAnimation { self.offset = -geometry.size.width * CGFloat(self.index) }
-                //
-                //                            })
-                //                            )
-                //                    }
                 //                }
-                //                .frame(width: UIScreen.main.bounds.width)
+                //
                 
+                TabView(selection: $selectedTab) {
+                    
+                    VStack{
+                        LazyVGrid(columns:  [
+                            GridItem(.flexible()),
+                            GridItem(.flexible()),
+                            GridItem(.flexible())
+                        ], spacing: 5) {
+                            
+                            ForEach(1...15 ,id: \.self){index in
+                                GeometryReader{proxy in
+                                    
+                                    let width = proxy.frame(in: .global).width
+                                    let image =  "post\(index)"
+                                    Image(image)
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fill)
+                                        .frame(width: width, height:  width )
+                                        .cornerRadius(3)
+                                    
+                                    
+                                }.frame(height: 120 )
+                            }
+                            
+                        }.padding(8)
+                    }.tag(0)
+                    
+                    VStack{
+                        LazyVGrid(columns:  [
+                            GridItem(.flexible()),
+                            GridItem(.flexible()),
+                            GridItem(.flexible())
+                        ], spacing: 5) {
+                            
+                            
+                            ForEach(1...15 ,id: \.self){index in
+                                
+                                GeometryReader{proxy in
+                                    
+                                    let width = proxy.frame(in: .global).width
+                                    let image =  "post\(index)"
+                                    Image(image)
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fill)
+                                        .frame(width: width, height: 180)
+                                        .cornerRadius(3)
+                                    
+                                    
+                                }.frame(height: 180)
+                            }
+                            
+                        }.padding(8)
+                        
+                        
+                    }.tag(1)
+                    
+                    VStack{
+                        LazyVGrid(columns:  [
+                            GridItem(.flexible()),
+                            GridItem(.flexible()),
+                            GridItem(.flexible())
+                        ], spacing: 5) {
+                            
+                            
+                            ForEach(1...15 ,id: \.self){index in
+                                
+                                GeometryReader{proxy in
+                                    
+                                    let width = proxy.frame(in: .global).width
+                                    let image =  "post\(index)"
+                                    Image(image)
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fill)
+                                        .frame(width: width, height:  width )
+                                        .cornerRadius(3)
+                                    
+                                    
+                                }.frame(height: 120)
+                            }
+                            
+                        }.padding(8)
+                    }.tag(2)
+                    
+                }
+                .tabViewStyle(.page(indexDisplayMode: .never))
+                .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .never))
+                .frame(height: 600)
                 
             }
-        }.background(Colors.Background.contentDefaultColor)
+        }
+        .background(Colors.theme1.contentDefaultColor)
     }
+    
 }
 
 
@@ -521,12 +491,13 @@ struct TabbarButton:View{
     var image:String
     var isSystemImage:Bool
     var animatation:Namespace.ID
-    @Binding var selectedTabIMG:String
+    var index:Int
+    @Binding var selectedTabIndex:Int
     var action: (() -> Void)?
     var body: some View{
         Button(action: {
-            print("previous:\(selectedTabIMG)")
-            selectedTabIMG = image
+            
+            selectedTabIndex = index
             action?()
         }) {
             VStack(spacing:12){
@@ -536,9 +507,9 @@ struct TabbarButton:View{
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 25, height: 25)
-                    .foregroundColor(selectedTabIMG == image ? .primary : .gray)
+                    .foregroundColor(selectedTabIndex == index ? .primary : .gray)
                 ZStack{
-                    if selectedTabIMG == image{
+                    if selectedTabIndex == index{
                         Rectangle()
                             .fill(Color.primary)
                     }else{

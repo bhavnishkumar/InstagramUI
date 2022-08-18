@@ -17,7 +17,7 @@ enum Colors {
             )
         }
     }
-    enum Background {
+    enum backrground {
         static var contentDefaultColor: Color {
             return setColor(
                 dark: Color(red: 0.06666667014360428, green: 0.09019608050584793, blue: 0.15294118225574493),
@@ -25,6 +25,37 @@ enum Colors {
             )
         }
     }
+    
+    
+    enum theme1 {
+        static var contentDefaultColor: Color {
+            return setColor(
+                dark: Color(red: 0.06666667014360428, green: 0.09019608050584793, blue: 0.15294118225574493),
+                light:  Color.white
+            )
+        }
+    }
+    
+    enum theme2 {
+        static var contentDefaultColor: Color {
+            return setColor(
+                dark: Color.orange,
+                light:  Color.white
+            )
+        }
+    }
+    
+    enum theme3{
+        static var contentDefaultColor: Color {
+            return setColor(
+                dark: Color.teal,
+                light:  Color.white
+            )
+        }
+    }
+    
+    
+    
 }
 
 extension Colors {
@@ -36,5 +67,4 @@ extension Colors {
         }
     }
 }
-
 
