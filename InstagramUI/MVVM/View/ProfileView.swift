@@ -378,7 +378,7 @@ struct ProfileView: View {
                 
                 TabView(selection: $selectedTab) {
                     
-                    VStack{
+
                         LazyVGrid(columns:  [
                             GridItem(.flexible()),
                             GridItem(.flexible()),
@@ -401,9 +401,10 @@ struct ProfileView: View {
                             }
                             
                         }.padding(8)
-                    }.tag(0)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+                    .tag(0)
                     
-                    VStack{
+                    
                         LazyVGrid(columns:  [
                             GridItem(.flexible()),
                             GridItem(.flexible()),
@@ -428,11 +429,10 @@ struct ProfileView: View {
                             }
                             
                         }.padding(8)
-                        
-                        
-                    }.tag(1)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+                           .tag(1)
                     
-                    VStack{
+                    
                         LazyVGrid(columns:  [
                             GridItem(.flexible()),
                             GridItem(.flexible()),
@@ -457,12 +457,13 @@ struct ProfileView: View {
                             }
                             
                         }.padding(8)
-                    }.tag(2)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+                            .tag(2)
                     
                 }
                 .tabViewStyle(.page(indexDisplayMode: .never))
                 .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .never))
-                .frame(height: 600)
+                .frame(height: 1000)
                 
             }
         }
