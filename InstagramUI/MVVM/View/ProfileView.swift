@@ -155,12 +155,12 @@ struct ProfileView: View {
                     Button(action: {
                         
                     }) {
-                        Label("Reel", systemImage: "folder.badge.plus")
+                        Label("Reel", systemImage: "video.badge.plus")
                     }
                     Button(action: {
                         
                     }) {
-                        Label("Post", systemImage: "checkmark.circle")
+                        Label("Post", systemImage: "photo")
                     }
                     Button(action: {
                         
@@ -170,7 +170,7 @@ struct ProfileView: View {
                     Button(action: {
                         
                     }) {
-                        Label("Story Hightlight", systemImage: "pencil.circle")
+                        Label("Story Hightlight", systemImage: "play.rectangle.fill")
                     }
                     Button(action: {
                         
@@ -181,7 +181,7 @@ struct ProfileView: View {
                     Button(action: {
                         
                     }) {
-                        Label("Guide", systemImage: "pencil.circle")
+                        Label("Guide", systemImage: "questionmark.circle.fill")
                     }
                     
                     
@@ -395,9 +395,9 @@ struct ProfileView: View {
                                         .aspectRatio(contentMode: .fill)
                                         .frame(width: width, height:  width )
                                         .cornerRadius(3)
-                                    
-                                    
+                                         
                                 }.frame(height: 120 )
+                                   
                             }
                             
                         }.padding(8)
@@ -463,7 +463,7 @@ struct ProfileView: View {
                 }
                 .tabViewStyle(.page(indexDisplayMode: .never))
                 .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .never))
-                .frame(height: 1000)
+                .frame(height: selectedTab != 1 ? 600  : 1000)
                 
             }
         }
