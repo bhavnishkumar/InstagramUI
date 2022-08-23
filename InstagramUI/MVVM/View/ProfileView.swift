@@ -29,8 +29,8 @@ struct ProfileView: View {
     @State private var offset: CGFloat = 0
     @State private var stickyHeaderOffset: CGFloat = 0
     
-    
-    
+    @available(iOS 14.0, *)
+    @Environment(\.scenePhase) private var scenePhase
     
     fileprivate func dyanmicsButtons() -> some View {
         HStack{
@@ -468,6 +468,20 @@ struct ProfileView: View {
             }
         }
         .background(Colors.theme1.contentDefaultColor)
+        //lifescyle with scenephase
+        .onChange(of: scenePhase) { phase in
+            switch phase {
+                case .active:
+                    print("scene become active")
+                case .inactive:
+                    print("scene become inactive")
+                case .background:
+                    print("scene go background")
+                default:
+                    print("")
+            }
+        }
+
     }
     
 }
