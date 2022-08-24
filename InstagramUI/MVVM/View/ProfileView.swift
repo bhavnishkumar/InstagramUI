@@ -28,10 +28,8 @@ struct ProfileView: View {
     @State private var index: Int = 0
     @State private var offset: CGFloat = 0
     @State private var stickyHeaderOffset: CGFloat = 0
-    
-    @available(iOS 14.0, *)
-    @Environment(\.scenePhase) private var scenePhase
-    
+        
+    //MARK:- Dynamics Buttons Profile
     fileprivate func dyanmicsButtons() -> some View {
         HStack{
             if self.viewModel.userprofile?.isOtherProfile ?? false {
@@ -92,7 +90,7 @@ struct ProfileView: View {
         }.padding(.horizontal)
     }
     
-    ///Hightlights
+    ///MARK:- Hightlights
     fileprivate func highlights() -> some View{
         ScrollView(.horizontal, showsIndicators: false) {
             
@@ -121,6 +119,49 @@ struct ProfileView: View {
         }
     }
     
+    //MARK:- Dropdown Menu list
+    fileprivate func dropdownMenu() -> some View {
+        Menu {
+            Button(action: {
+                
+            }) {
+                Label("Reel", systemImage: "video.badge.plus")
+            }
+            Button(action: {
+                
+            }) {
+                Label("Post", systemImage: "photo")
+            }
+            Button(action: {
+                
+            }) {
+                Label("Story", systemImage: "pencil.circle")
+            }
+            Button(action: {
+                
+            }) {
+                Label("Story Hightlight", systemImage: "play.rectangle.fill")
+            }
+            Button(action: {
+                
+            }) {
+                Label("Live", systemImage: "pencil.circle")
+            }
+            
+            Button(action: {
+                
+            }) {
+                Label("Guide", systemImage: "questionmark.circle.fill")
+            }
+            
+            
+        } label: {
+            Image(systemName: "plus.app")
+                .font(.title)
+                .foregroundColor(.primary)
+        }
+    }
+    
     var body: some View {
         VStack{
             
@@ -144,54 +185,9 @@ struct ProfileView: View {
                     }
                 }
                 Spacer(minLength: 0)
-                //                Button(action: {}) {
-                //                    Image(systemName: "plus.app")
-                //                        .font(.title)
-                //                        .foregroundColor(.primary)
-                //                }
                 
-                //Add Popup Over Menu
-                Menu {
-                    Button(action: {
-                        
-                    }) {
-                        Label("Reel", systemImage: "video.badge.plus")
-                    }
-                    Button(action: {
-                        
-                    }) {
-                        Label("Post", systemImage: "photo")
-                    }
-                    Button(action: {
-                        
-                    }) {
-                        Label("Story", systemImage: "pencil.circle")
-                    }
-                    Button(action: {
-                        
-                    }) {
-                        Label("Story Hightlight", systemImage: "play.rectangle.fill")
-                    }
-                    Button(action: {
-                        
-                    }) {
-                        Label("Live", systemImage: "pencil.circle")
-                    }
-                    
-                    Button(action: {
-                        
-                    }) {
-                        Label("Guide", systemImage: "questionmark.circle.fill")
-                    }
-                    
-                    
-                } label: {
-                    Image(systemName: "plus.app")
-                        .font(.title)
-                        .foregroundColor(.primary)
-                }
-                
-                
+                dropdownMenu() //dropdown menu
+            
                 Button(action: {}) {
                     Image(uiImage: UIImage.init(named: "hamburger")!)
                         .font(.largeTitle)
@@ -238,36 +234,36 @@ struct ProfileView: View {
                     HStack{
                         VStack{
                             Text((self.viewModel.userprofile?.posts ?? "0"))
-                                .font(.system(size: 13))
+                                .font(.system(size: 15))
                                 .fontWeight(.bold)
                                 .foregroundColor(.primary)
                             
                             Text("Posts")
-                                .font(.system(size: 13))
+                                .font(.system(size: 15))
                                 .foregroundColor(.gray)
                             
                         }.frame(maxWidth: .infinity)
                         
                         VStack{
                             Text((self.viewModel.userprofile?.followers ?? "0"))
-                                .font(.system(size: 13))
+                                .font(.system(size: 15))
                                 .fontWeight(.bold)
                                 .foregroundColor(.primary)
                             
                             Text("Followers")
-                                .font(.system(size: 13))
+                                .font(.system(size: 15))
                                 .foregroundColor(.gray)
                             
                         }.frame(maxWidth: .infinity)
                         
                         VStack{
                             Text((self.viewModel.userprofile?.following ?? "0"))
-                                .font(.system(size: 13))
+                                .font(.system(size: 15))
                                 .fontWeight(.bold)
                                 .foregroundColor(.primary)
                             
                             Text("Following")
-                                .font(.system(size: 13))
+                                .font(.system(size: 15))
                                 .foregroundColor(.gray)
                             
                         }.frame(maxWidth: .infinity)
@@ -341,44 +337,10 @@ struct ProfileView: View {
                 }.frame( height: 45)
                     .zIndex(4)
                 
-                
-                
-                //                VStack{
-                //                    LazyVGrid(columns:  [
-                //                        GridItem(.flexible()),
-                //                        GridItem(.flexible()),
-                //                        GridItem(.flexible())
-                //                    ], spacing: 5) {
-                //
-                //
-                //                        ForEach(1...15 ,id: \.self){index in
-                //
-                //                            GeometryReader{proxy in
-                //
-                //                                let width = proxy.frame(in: .global).width
-                //                                let image =  "post\(index)"
-                //                                Image(image)
-                //                                    .resizable()
-                //                                    .aspectRatio(contentMode: .fill)
-                //                                    .frame(width: width, height: selectedTab != 1 ? width : 180)
-                //                                    .cornerRadius(3)
-                //
-                //
-                //                            }.frame(height: selectedTab != 1 ? 120 : 180)
-                //
-                //
-                //
-                //                        }
-                //
-                //                    }.padding(8)
-                //                    .frame(width: UIScreen.main.bounds.width)
-                //
-                //                }
-                //
-                
+                 /// Grid
                 TabView(selection: $selectedTab) {
                     
-
+                    //LazyVGrid 1
                         LazyVGrid(columns:  [
                             GridItem(.flexible()),
                             GridItem(.flexible()),
@@ -404,7 +366,7 @@ struct ProfileView: View {
                             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
                     .tag(0)
                     
-                    
+                    //LazyVGrid 2
                         LazyVGrid(columns:  [
                             GridItem(.flexible()),
                             GridItem(.flexible()),
@@ -432,7 +394,7 @@ struct ProfileView: View {
                             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
                            .tag(1)
                     
-                    
+                    //LazyVGrid 3
                         LazyVGrid(columns:  [
                             GridItem(.flexible()),
                             GridItem(.flexible()),
@@ -468,35 +430,13 @@ struct ProfileView: View {
             }
         }
         .background(Colors.theme1.contentDefaultColor)
-        //lifescyle with scenephase
-        .onChange(of: scenePhase) { phase in
-            switch phase {
-                case .active:
-                    print("scene become active")
-                case .inactive:
-                    print("scene become inactive")
-                case .background:
-                    print("scene go background")
-                default:
-                    print("")
-            }
-        }
+       
 
     }
     
 }
 
 
-
-extension Int {
-    func keepIndexInRange(min: Int, max: Int) -> Int {
-        switch self {
-        case ..<min: return min
-        case max...: return max
-        default: return self
-        }
-    }
-}
 
 
 
@@ -537,10 +477,10 @@ struct TabbarButton:View{
         
     }
 }
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ProfileView()
-    }
-}
+//
+//struct ContentView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ProfileView()
+//    }
+//}
 
