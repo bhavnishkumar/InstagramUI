@@ -7,23 +7,17 @@
 
 import SwiftUI
 
-struct InnerContentSize: PreferenceKey {
-    typealias Value = [CGRect]
-    
-    static var defaultValue: [CGRect] = []
-    static func reduce(value: inout [CGRect], nextValue: () -> [CGRect]) {
-        value.append(contentsOf: nextValue())
-    }
-}
 
 struct ProfileView: View {
     
     @ObservedObject var viewModel = ProfileViewModel()
     @State var selectedTab:Int = 0 //selected tab
     @Namespace var animation
- 
+    
     
     @Environment(\.colorScheme) var colorScheme
+    
+    
     
     @State private var index: Int = 0
     @State private var offset: CGFloat = 0
@@ -122,39 +116,13 @@ struct ProfileView: View {
     //MARK:- Dropdown Menu list
     fileprivate func dropdownMenu() -> some View {
         Menu {
-            Button(action: {
-                
-            }) {
-                Label("Reel", systemImage: "video.badge.plus")
+            ForEach(self.viewModel.menuList) { menu in
+                Button(action: {
+                    
+                }) {
+                    Label(menu.menuName, systemImage: menu.menuIMG)
+                }
             }
-            Button(action: {
-                
-            }) {
-                Label("Post", systemImage: "photo")
-            }
-            Button(action: {
-                
-            }) {
-                Label("Story", systemImage: "pencil.circle")
-            }
-            Button(action: {
-                
-            }) {
-                Label("Story Hightlight", systemImage: "play.rectangle.fill")
-            }
-            Button(action: {
-                
-            }) {
-                Label("Live", systemImage: "pencil.circle")
-            }
-            
-            Button(action: {
-                
-            }) {
-                Label("Guide", systemImage: "questionmark.circle.fill")
-            }
-            
-            
         } label: {
             Image(systemName: "plus.app")
                 .font(.title)
@@ -198,7 +166,7 @@ struct ProfileView: View {
     }
     
     fileprivate func HeaderView() -> some View {
-         //Header top
+        //Header top
         HStack(spacing: 12){
             Button(action: {}) {
                 HStack{
@@ -233,7 +201,7 @@ struct ProfileView: View {
     }
     
     fileprivate func profileinfo() -> some View {
-         //Avatar and posts follower and following section
+        //Avatar and posts follower and following section
         HStack(spacing: 2){
             Button(action: {}) {
                 Image(uiImage: UIImage.init(named: "Avatar+white")!)
@@ -287,7 +255,7 @@ struct ProfileView: View {
     }
     
     fileprivate func Grids() -> some View {
-         /// Grid
+        /// Grid
         TabView(selection: $selectedTab) {
             
             //LazyVGrid 1

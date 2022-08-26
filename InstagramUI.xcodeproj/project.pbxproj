@@ -22,6 +22,7 @@
 		8450B8DE28ABB93E00216551 /* Screenshot 2022-08-16 at 5.07.45 PM.png in Resources */ = {isa = PBXBuildFile; fileRef = 8450B8DC28ABB93E00216551 /* Screenshot 2022-08-16 at 5.07.45 PM.png */; };
 		8499A30B28B890A30091C978 /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8499A30A28B890A30091C978 /* EditProfileView.swift */; };
 		8499A30D28B890D40091C978 /* SpalshView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8499A30C28B890D40091C978 /* SpalshView.swift */; };
+		8499A30F28B8B69E0091C978 /* MenuModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8499A30E28B8B69E0091C978 /* MenuModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +42,7 @@
 		8450B8DC28ABB93E00216551 /* Screenshot 2022-08-16 at 5.07.45 PM.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Screenshot 2022-08-16 at 5.07.45 PM.png"; sourceTree = "<group>"; };
 		8499A30A28B890A30091C978 /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
 		8499A30C28B890D40091C978 /* SpalshView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpalshView.swift; sourceTree = "<group>"; };
+		8499A30E28B8B69E0091C978 /* MenuModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				842E54A428A42BB300CCE76F /* ProfileModel.swift */,
+				8499A30E28B8B69E0091C978 /* MenuModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -224,6 +227,7 @@
 			files = (
 				8450B8D328ABA4E600216551 /* ThemeHelper.swift in Sources */,
 				8412680328A23CA800E039C8 /* InstagramUI.xcdatamodeld in Sources */,
+				8499A30F28B8B69E0091C978 /* MenuModel.swift in Sources */,
 				8499A30B28B890A30091C978 /* EditProfileView.swift in Sources */,
 				8412680028A23CA800E039C8 /* Persistence.swift in Sources */,
 				841267F928A23CA500E039C8 /* ProfileView.swift in Sources */,
