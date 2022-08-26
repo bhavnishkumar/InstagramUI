@@ -21,16 +21,16 @@ struct ProfileView: View {
     @ObservedObject var viewModel = ProfileViewModel()
     @State var selectedTab:Int = 0 //selected tab
     @Namespace var animation
-    let posts = ["bed.double.fill","tram.fill","tv.music.note.fill","hare.fill"]
+ 
     
     @Environment(\.colorScheme) var colorScheme
     
     @State private var index: Int = 0
     @State private var offset: CGFloat = 0
     @State private var stickyHeaderOffset: CGFloat = 0
-        
+    
     //MARK:- Dynamics Buttons Profile
-    fileprivate func dyanmicsButtons() -> some View {
+    fileprivate func DyanmicsButtons() -> some View {
         HStack{
             if self.viewModel.userprofile?.isOtherProfile ?? false {
                 //Other profile
@@ -162,46 +162,226 @@ struct ProfileView: View {
         }
     }
     
-    var body: some View {
-        VStack{
+    //MARK:- Bio information list
+    fileprivate func BioInformation() -> some View {
+        //Bio information section
+        VStack(alignment: .leading, spacing: 2){
+            HStack {
+                Spacer()
+            }
+            Text(self.viewModel.userprofile?.fullname ?? "")
+                .font(.system(size: 14))
+                .fontWeight(.bold)
+                .foregroundColor(.primary)
             
-            //Header top
-            HStack(spacing: 12){
-                Button(action: {}) {
-                    HStack{
-                        Text(viewModel.userprofile?.username ?? "")
-                            .font(.title2)
-                            .fontWeight(.bold)
-                            .foregroundColor(.primary)
-                        
-                        Image(uiImage: UIImage.init(named: "bluetick")!)
-                        
-                            .resizable()
-                            .aspectRatio( contentMode: .fill)
-                            .frame(width: 20, height: 20, alignment: .leading)
-                            .opacity((viewModel.userprofile?.bluetickEnable ?? false) ? 1 : 0)
-                        
-                        
-                    }
-                }
-                Spacer(minLength: 0)
-                
-                dropdownMenu() //dropdown menu
             
-                Button(action: {}) {
-                    Image(uiImage: UIImage.init(named: "hamburger")!)
-                        .font(.largeTitle)
+            Text(self.viewModel.userprofile?.caption ?? "")
+                .font(.system(size: 14))
+                .fontWeight(.semibold)
+                .foregroundColor(.gray)
+            
+            
+            Text(self.viewModel.userprofile?.bio ?? "")
+                .font(.system(size: 14))
+                .fontWeight(.medium)
+                .foregroundColor(.primary)
+            
+                .font(.system(size: 14))
+                .fontWeight(.semibold)
+                .foregroundColor(.blue)
+            Link(destination: URL(string: self.viewModel.userprofile?.link ?? "")!) {
+                Text(self.viewModel.userprofile?.link ?? "")
+                    .font(.system(size: 14))
+            }
+            
+        }.padding(.horizontal)
+    }
+    
+    fileprivate func HeaderView() -> some View {
+         //Header top
+        HStack(spacing: 12){
+            Button(action: {}) {
+                HStack{
+                    Text(viewModel.userprofile?.username ?? "")
+                        .font(.title2)
+                        .fontWeight(.bold)
                         .foregroundColor(.primary)
                     
+                    Image(uiImage: UIImage.init(named: "bluetick")!)
+                    
+                        .resizable()
+                        .aspectRatio( contentMode: .fill)
+                        .frame(width: 20, height: 20, alignment: .leading)
+                        .opacity((viewModel.userprofile?.bluetickEnable ?? false) ? 1 : 0)
                     
                     
                 }
-            }.padding([.horizontal,.top])
+            }
+            Spacer(minLength: 0)
             
+            dropdownMenu() //dropdown menu
             
-            //            Spacer(minLength: 0)
-            Divider().padding(.top)
+            Button(action: {}) {
+                Image(uiImage: UIImage.init(named: "hamburger")!)
+                    .font(.largeTitle)
+                    .foregroundColor(.primary)
+                
+                
+                
+            }
+        }.padding([.horizontal,.top])
+    }
+    
+    fileprivate func profileinfo() -> some View {
+         //Avatar and posts follower and following section
+        HStack(spacing: 2){
+            Button(action: {}) {
+                Image(uiImage: UIImage.init(named: "Avatar+white")!)
+                    .resizable()
+                    .aspectRatio( contentMode: .fill)
+                    .frame(width: 80, height: 80)
+                    .cornerRadius(40)
+                    .shadow(radius: 2)
+            }
             
+            Spacer(minLength: 30)
+            HStack{
+                VStack{
+                    Text((self.viewModel.userprofile?.posts ?? "0"))
+                        .font(.system(size: 15))
+                        .fontWeight(.bold)
+                        .foregroundColor(.primary)
+                    
+                    Text("Posts")
+                        .font(.system(size: 15))
+                        .foregroundColor(.gray)
+                    
+                }.frame(maxWidth: .infinity)
+                
+                VStack{
+                    Text((self.viewModel.userprofile?.followers ?? "0"))
+                        .font(.system(size: 15))
+                        .fontWeight(.bold)
+                        .foregroundColor(.primary)
+                    
+                    Text("Followers")
+                        .font(.system(size: 15))
+                        .foregroundColor(.gray)
+                    
+                }.frame(maxWidth: .infinity)
+                
+                VStack{
+                    Text((self.viewModel.userprofile?.following ?? "0"))
+                        .font(.system(size: 15))
+                        .fontWeight(.bold)
+                        .foregroundColor(.primary)
+                    
+                    Text("Following")
+                        .font(.system(size: 15))
+                        .foregroundColor(.gray)
+                    
+                }.frame(maxWidth: .infinity)
+            }
+            
+        }.padding(.horizontal)
+    }
+    
+    fileprivate func Grids() -> some View {
+         /// Grid
+        TabView(selection: $selectedTab) {
+            
+            //LazyVGrid 1
+            LazyVGrid(columns:  [
+                GridItem(.flexible()),
+                GridItem(.flexible()),
+                GridItem(.flexible())
+            ], spacing: 5) {
+                
+                ForEach(1...15 ,id: \.self){index in
+                    GeometryReader{proxy in
+                        
+                        let width = proxy.frame(in: .global).width
+                        let image =  "post\(index)"
+                        Image(image)
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: width, height:  width )
+                            .cornerRadius(3)
+                        
+                    }.frame(height: 120 )
+                    
+                }
+                
+            }.padding(8)
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+                .tag(0)
+            
+            //LazyVGrid 2
+            LazyVGrid(columns:  [
+                GridItem(.flexible()),
+                GridItem(.flexible()),
+                GridItem(.flexible())
+            ], spacing: 5) {
+                
+                
+                ForEach(1...15 ,id: \.self){index in
+                    
+                    GeometryReader{proxy in
+                        
+                        let width = proxy.frame(in: .global).width
+                        let image =  "post\(index)"
+                        Image(image)
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: width, height: 180)
+                            .cornerRadius(3)
+                        
+                        
+                    }.frame(height: 180)
+                }
+                
+            }.padding(8)
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+                .tag(1)
+            
+            //LazyVGrid 3
+            LazyVGrid(columns:  [
+                GridItem(.flexible()),
+                GridItem(.flexible()),
+                GridItem(.flexible())
+            ], spacing: 5) {
+                
+                
+                ForEach(1...15 ,id: \.self){index in
+                    
+                    GeometryReader{proxy in
+                        
+                        let width = proxy.frame(in: .global).width
+                        let image =  "post\(index)"
+                        Image(image)
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: width, height:  width )
+                            .cornerRadius(3)
+                        
+                        
+                    }.frame(height: 120)
+                }
+                
+            }.padding(8)
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+                .tag(2)
+            
+        }
+        .tabViewStyle(.page(indexDisplayMode: .never))
+        .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .never))
+        .frame(height: selectedTab != 1 ? 600  : 1000)
+    }
+    
+    var body: some View {
+        VStack{
+            HeaderView()
+            Divider().padding(.top).frame( height: 1, alignment: .top)
             
             GeometryReader{proxy -> Color in
                 let minY = proxy.frame(in: .global).minY
@@ -213,98 +393,14 @@ struct ProfileView: View {
                 return Color.clear
                 
             }.frame(width: 0, height: 0)
-            
-            
-            
             //Scroll Outside wrapper
             ScrollView(.vertical, showsIndicators: false) {
                 
-                //Avatar and posts follower and following section
-                HStack(spacing: 2){
-                    Button(action: {}) {
-                        Image(uiImage: UIImage.init(named: "Avatar+white")!)
-                            .resizable()
-                            .aspectRatio( contentMode: .fill)
-                            .frame(width: 80, height: 80)
-                            .cornerRadius(40)
-                            .shadow(radius: 2)
-                    }
-                    
-                    Spacer(minLength: 30)
-                    HStack{
-                        VStack{
-                            Text((self.viewModel.userprofile?.posts ?? "0"))
-                                .font(.system(size: 15))
-                                .fontWeight(.bold)
-                                .foregroundColor(.primary)
-                            
-                            Text("Posts")
-                                .font(.system(size: 15))
-                                .foregroundColor(.gray)
-                            
-                        }.frame(maxWidth: .infinity)
-                        
-                        VStack{
-                            Text((self.viewModel.userprofile?.followers ?? "0"))
-                                .font(.system(size: 15))
-                                .fontWeight(.bold)
-                                .foregroundColor(.primary)
-                            
-                            Text("Followers")
-                                .font(.system(size: 15))
-                                .foregroundColor(.gray)
-                            
-                        }.frame(maxWidth: .infinity)
-                        
-                        VStack{
-                            Text((self.viewModel.userprofile?.following ?? "0"))
-                                .font(.system(size: 15))
-                                .fontWeight(.bold)
-                                .foregroundColor(.primary)
-                            
-                            Text("Following")
-                                .font(.system(size: 15))
-                                .foregroundColor(.gray)
-                            
-                        }.frame(maxWidth: .infinity)
-                    }
-                    
-                }.padding(.horizontal)
+                profileinfo()
                 
+                BioInformation()
                 
-                //Bio information section
-                VStack(alignment: .leading, spacing: 2){
-                    HStack {
-                        Spacer()
-                    }
-                    Text(self.viewModel.userprofile?.fullname ?? "")
-                        .font(.system(size: 14))
-                        .fontWeight(.bold)
-                        .foregroundColor(.primary)
-                    
-                    
-                    Text(self.viewModel.userprofile?.caption ?? "")
-                        .font(.system(size: 14))
-                        .fontWeight(.semibold)
-                        .foregroundColor(.gray)
-                    
-                    
-                    Text(self.viewModel.userprofile?.bio ?? "")
-                        .font(.system(size: 14))
-                        .fontWeight(.medium)
-                        .foregroundColor(.primary)
-                    
-                        .font(.system(size: 14))
-                        .fontWeight(.semibold)
-                        .foregroundColor(.blue)
-                    Link(destination: URL(string: self.viewModel.userprofile?.link ?? "")!) {
-                        Text(self.viewModel.userprofile?.link ?? "")
-                            .font(.system(size: 14))
-                    }
-                    
-                }.padding(.horizontal)
-                
-                dyanmicsButtons()
+                DyanmicsButtons()
                 
                 highlights() //Highlights
                 
@@ -335,106 +431,16 @@ struct ProfileView: View {
                 }.frame( height: 45)
                     .zIndex(4)
                 
-                 /// Grid
-                TabView(selection: $selectedTab) {
-                    
-                    //LazyVGrid 1
-                        LazyVGrid(columns:  [
-                            GridItem(.flexible()),
-                            GridItem(.flexible()),
-                            GridItem(.flexible())
-                        ], spacing: 5) {
-                            
-                            ForEach(1...15 ,id: \.self){index in
-                                GeometryReader{proxy in
-                                    
-                                    let width = proxy.frame(in: .global).width
-                                    let image =  "post\(index)"
-                                    Image(image)
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fill)
-                                        .frame(width: width, height:  width )
-                                        .cornerRadius(3)
-                                         
-                                }.frame(height: 120 )
-                                   
-                            }
-                            
-                        }.padding(8)
-                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-                    .tag(0)
-                    
-                    //LazyVGrid 2
-                        LazyVGrid(columns:  [
-                            GridItem(.flexible()),
-                            GridItem(.flexible()),
-                            GridItem(.flexible())
-                        ], spacing: 5) {
-                            
-                            
-                            ForEach(1...15 ,id: \.self){index in
-                                
-                                GeometryReader{proxy in
-                                    
-                                    let width = proxy.frame(in: .global).width
-                                    let image =  "post\(index)"
-                                    Image(image)
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fill)
-                                        .frame(width: width, height: 180)
-                                        .cornerRadius(3)
-                                    
-                                    
-                                }.frame(height: 180)
-                            }
-                            
-                        }.padding(8)
-                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-                           .tag(1)
-                    
-                    //LazyVGrid 3
-                        LazyVGrid(columns:  [
-                            GridItem(.flexible()),
-                            GridItem(.flexible()),
-                            GridItem(.flexible())
-                        ], spacing: 5) {
-                            
-                            
-                            ForEach(1...15 ,id: \.self){index in
-                                
-                                GeometryReader{proxy in
-                                    
-                                    let width = proxy.frame(in: .global).width
-                                    let image =  "post\(index)"
-                                    Image(image)
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fill)
-                                        .frame(width: width, height:  width )
-                                        .cornerRadius(3)
-                                    
-                                    
-                                }.frame(height: 120)
-                            }
-                            
-                        }.padding(8)
-                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-                            .tag(2)
-                    
-                }
-                .tabViewStyle(.page(indexDisplayMode: .never))
-                .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .never))
-                .frame(height: selectedTab != 1 ? 600  : 1000)
+                Grids()
                 
             }
         }
         .background(Colors.theme1.contentDefaultColor)
-       
-
+        
+        
     }
     
 }
-
-
 
 
 
@@ -476,9 +482,9 @@ struct TabbarButton:View{
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ProfileView()
-    }
-}
-
+//struct ContentView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ProfileView()
+//    }
+//}
+//

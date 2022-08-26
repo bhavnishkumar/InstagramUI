@@ -33,7 +33,8 @@ struct SpalshView: View {
                     
                     
                 }.frame(alignment: .bottom)
-            }.onAppear {
+            } .background(Colors.theme1.contentDefaultColor)
+            .onAppear {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
                     withAnimation {
                         self.isActive = true
