@@ -289,8 +289,6 @@ struct ProfileView: View {
                         .foregroundColor(.gray)
                     
                     
-                    
-                    
                     Text(self.viewModel.userprofile?.bio ?? "")
                         .font(.system(size: 14))
                         .fontWeight(.medium)
@@ -477,10 +475,10 @@ struct TabbarButton:View{
         
     }
 }
-//
-//struct ContentView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ProfileView()
-//    }
-//}
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ProfileView()
+    }
+}
 
