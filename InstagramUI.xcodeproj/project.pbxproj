@@ -20,6 +20,8 @@
 		8450B8D528ABB58B00216551 /* Readme.md in Resources */ = {isa = PBXBuildFile; fileRef = 8450B8D428ABB58B00216551 /* Readme.md */; };
 		8450B8DD28ABB93E00216551 /* Screenshot 2022-08-16 at 5.07.30 PM.png in Resources */ = {isa = PBXBuildFile; fileRef = 8450B8DB28ABB93E00216551 /* Screenshot 2022-08-16 at 5.07.30 PM.png */; };
 		8450B8DE28ABB93E00216551 /* Screenshot 2022-08-16 at 5.07.45 PM.png in Resources */ = {isa = PBXBuildFile; fileRef = 8450B8DC28ABB93E00216551 /* Screenshot 2022-08-16 at 5.07.45 PM.png */; };
+		8499A30B28B890A30091C978 /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8499A30A28B890A30091C978 /* EditProfileView.swift */; };
+		8499A30D28B890D40091C978 /* SpalshView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8499A30C28B890D40091C978 /* SpalshView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +39,8 @@
 		8450B8D428ABB58B00216551 /* Readme.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Readme.md; sourceTree = "<group>"; };
 		8450B8DB28ABB93E00216551 /* Screenshot 2022-08-16 at 5.07.30 PM.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Screenshot 2022-08-16 at 5.07.30 PM.png"; sourceTree = "<group>"; };
 		8450B8DC28ABB93E00216551 /* Screenshot 2022-08-16 at 5.07.45 PM.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Screenshot 2022-08-16 at 5.07.45 PM.png"; sourceTree = "<group>"; };
+		8499A30A28B890A30091C978 /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
+		8499A30C28B890D40091C978 /* SpalshView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpalshView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +125,8 @@
 			isa = PBXGroup;
 			children = (
 				841267F828A23CA500E039C8 /* ProfileView.swift */,
+				8499A30A28B890A30091C978 /* EditProfileView.swift */,
+				8499A30C28B890D40091C978 /* SpalshView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -218,10 +224,12 @@
 			files = (
 				8450B8D328ABA4E600216551 /* ThemeHelper.swift in Sources */,
 				8412680328A23CA800E039C8 /* InstagramUI.xcdatamodeld in Sources */,
+				8499A30B28B890A30091C978 /* EditProfileView.swift in Sources */,
 				8412680028A23CA800E039C8 /* Persistence.swift in Sources */,
 				841267F928A23CA500E039C8 /* ProfileView.swift in Sources */,
 				842E54A528A42BB300CCE76F /* ProfileModel.swift in Sources */,
 				841267F728A23CA500E039C8 /* InstagramUIApp.swift in Sources */,
+				8499A30D28B890D40091C978 /* SpalshView.swift in Sources */,
 				842E54A328A42B5000CCE76F /* ProfileViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

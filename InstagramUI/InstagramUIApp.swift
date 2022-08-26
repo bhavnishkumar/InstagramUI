@@ -14,7 +14,7 @@ struct InstagramUIApp: App {
     @Environment(\.scenePhase) private var scenePhase
     var body: some Scene {
         WindowGroup {
-            ProfileView()
+            SpalshView()
             
         }.onChange(of: scenePhase) { phase in
             switch phase {
