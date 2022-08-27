@@ -14,11 +14,8 @@ struct ProfileView: View {
     @State var selectedTab:Int = 0 //selected tab
     @Namespace var animation
     
-    
     @Environment(\.colorScheme) var colorScheme
-    
-    
-    
+
     @State private var index: Int = 0
     @State private var offset: CGFloat = 0
     @State private var stickyHeaderOffset: CGFloat = 0
@@ -349,7 +346,7 @@ struct ProfileView: View {
     var body: some View {
         VStack{
             HeaderView()
-            Divider().padding(.top).frame( height: 1, alignment: .top)
+            Divider().padding(.top)
             
             GeometryReader{proxy -> Color in
                 let minY = proxy.frame(in: .global).minY
@@ -392,6 +389,7 @@ struct ProfileView: View {
                             }
                             
                         }.frame( height: 45,alignment: .bottom)
+                            .padding(0)
                             .background(Colors.backrground.contentDefaultColor)
                             .offset(y: offset < 0 ? -offset : 0)
                     )

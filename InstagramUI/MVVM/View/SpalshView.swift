@@ -24,7 +24,6 @@ struct SpalshView: View {
                         
                     }
                 }
-                
                 VStack{
                     Text("from")
                     Image("meta")
@@ -34,13 +33,13 @@ struct SpalshView: View {
                     
                 }.frame(alignment: .bottom)
             } .background(Colors.theme1.contentDefaultColor)
-            .onAppear {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
-                    withAnimation {
-                        self.isActive = true
+                .onAppear {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+                        withAnimation {
+                            self.isActive = true
+                        }
                     }
                 }
-            }
             
         }
         
