@@ -15,10 +15,11 @@ struct ProfileView: View {
     @Namespace var animation
     
     @Environment(\.colorScheme) var colorScheme
-
+    
     @State private var index: Int = 0
     @State private var offset: CGFloat = 0
     @State private var stickyHeaderOffset: CGFloat = 0
+    @State var isEditProfile:Bool = false
     
     //MARK:- Dynamics Buttons Profile
     fileprivate func DyanmicsButtons() -> some View {
@@ -59,7 +60,9 @@ struct ProfileView: View {
                 
             }else{
                 
-                Button(action: {}) {
+                Button(action: {
+                    self.isEditProfile =  !self.isEditProfile
+                }) {
                     Text("Edit Profile")
                         .font(.system(size: 13))
                         .fontWeight(.bold)
@@ -343,68 +346,78 @@ struct ProfileView: View {
         .frame(height: selectedTab != 1 ? 600  : 1000)
     }
     
+    
+    
     var body: some View {
-        VStack{
-            HeaderView()
-            Divider().padding(.top)
-            
-            GeometryReader{proxy -> Color in
-                let minY = proxy.frame(in: .global).minY
-                DispatchQueue.main.async {
-                    if stickyHeaderOffset == 0{
-                        stickyHeaderOffset = minY
-                    }
-                }
-                return Color.clear
+        NavigationView {
+            VStack{
+                HeaderView()
+                Divider().padding(.top)
                 
-            }.frame(width: 0, height: 0)
-            //Scroll Outside wrapper
-            ScrollView(.vertical, showsIndicators: false) {
-                
-                profileinfo()
-                
-                BioInformation()
-                
-                DyanmicsButtons()
-                
-                highlights() //Highlights
-                
-                //header tabbar with sticky
-                GeometryReader{proxy -> AnyView in
+                GeometryReader{proxy -> Color in
                     let minY = proxy.frame(in: .global).minY
-                    print("stickyHeaderOffset:\(stickyHeaderOffset)")
-                    let offset =   minY - stickyHeaderOffset
-                    print("offset:\(offset)")
-                    return AnyView(
-                        HStack(spacing:0){
-                            
-                            TabbarButton(image: "pixels", isSystemImage: false, animatation: animation,index: 0,selectedTabIndex: $selectedTab) {
-                                selectedTab = 0
-                            }
-                            TabbarButton(image: "video", isSystemImage: false, animatation: animation,index: 1,selectedTabIndex: $selectedTab) {
-                                selectedTab = 1
-                            }
-                            TabbarButton(image: "person.crop.square", isSystemImage: true, animatation: animation,index:2,selectedTabIndex: $selectedTab) {
-                                selectedTab = 2
-                            }
-                            
-                        }.frame( height: 45,alignment: .bottom)
-                            .padding(0)
-                            .background(Colors.backrground.contentDefaultColor)
-                            .offset(y: offset < 0 ? -offset : 0)
-                    )
+                    DispatchQueue.main.async {
+                        if stickyHeaderOffset == 0{
+                            stickyHeaderOffset = minY
+                        }
+                    }
+                    return Color.clear
                     
-                }.frame( height: 45)
-                    .zIndex(4)
+                }.frame(width: 0, height: 0)
+                //Scroll Outside wrapper
+                ScrollView(.vertical, showsIndicators: false) {
+                    
+                    profileinfo()
+                    
+                    BioInformation()
+                    
+                    DyanmicsButtons()
+                    
+                    highlights() //Highlights
+                    
+                    //header tabbar with sticky
+                    GeometryReader{proxy -> AnyView in
+                        let minY = proxy.frame(in: .global).minY
+                        print("stickyHeaderOffset:\(stickyHeaderOffset)")
+                        let offset =   minY - stickyHeaderOffset
+                        print("offset:\(offset)")
+                        return AnyView(
+                            HStack(spacing:0){
+                                
+                                TabbarButton(image: "pixels", isSystemImage: false, animatation: animation,index: 0,selectedTabIndex: $selectedTab) {
+                                    selectedTab = 0
+                                }
+                                TabbarButton(image: "video", isSystemImage: false, animatation: animation,index: 1,selectedTabIndex: $selectedTab) {
+                                    selectedTab = 1
+                                }
+                                TabbarButton(image: "person.crop.square", isSystemImage: true, animatation: animation,index:2,selectedTabIndex: $selectedTab) {
+                                    selectedTab = 2
+                                }
+                                
+                            }.frame( height: 45,alignment: .bottom)
+                                .padding(0)
+                                .background(Colors.backrground.contentDefaultColor)
+                                .offset(y: offset < 0 ? -offset : 0)
+                        )
+                        
+                    }.frame( height: 45)
+                        .zIndex(4)
+                    
+                    Grids()
+                    
+                }
                 
-                Grids()
-                
+                NavigationLink(destination: EditProfileView(), isActive: self.$isEditProfile) {
+                   EmptyView()
+                }.hidden()
+                   
             }
+            .background(Colors.theme1.contentDefaultColor)
+            .navigationBarTitle("")
+                .navigationBarHidden(true)
         }
-        .background(Colors.theme1.contentDefaultColor)
-        
-        
     }
+    
     
 }
 

@@ -1,6 +1,6 @@
 {
     "userprofile": {
-        "isOtherProfile":true,
+        "isOtherProfile":false,
         "isFollow":false,
         "userId": "1030",
         "username":"its_ur_bhuvi",
