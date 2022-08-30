@@ -1,0 +1,74 @@
+{
+    
+    "hightlights": [
+        {
+            "hightlightText":"15 August",
+            "hightlightImg": "img1"
+        },
+        {
+            "hightlightText":"Self Learning",
+            "hightlightImg": "img2"
+        },
+        {
+            "hightlightText":"New Feature",
+            "hightlightImg": "img3"
+        },
+        {
+            "hightlightText":"Books",
+            "hightlightImg": "img4"
+        },
+        {
+            "hightlightText":"Tips & Tricks",
+            "hightlightImg": "img5"
+        },
+        {
+            "hightlightText":"Eventkit",
+            "hightlightImg": "img6"
+        },
+        {
+            "hightlightText":"Swiftui 4.0",
+            "hightlightImg": "img7"
+        },
+        {
+            "hightlightText":"Swiftui 2.0",
+            "hightlightImg": "img8"
+        }
+    ],
+    
+	"feed": [{
+            "id": 1,
+            "username": "its_ur_bhuvi",
+			"caption": "Clicked by Brunno Rodrigues",
+			"imageurl": "https://images.pexels.com/photos/9318388/pexels-photo-9318388.jpeg"
+		},
+		{
+            "id": 2,
+            "username": "its_ur_bhuvi",
+			"caption": "Girl with camera",
+			"imageurl": "https://images.pexels.com/photos/9056599/pexels-photo-9056599.jpeg"
+		},
+		{
+            "id": 3,
+            "username": "its_ur_bhuvi",
+			"caption": "Desktop application",
+			"imageurl": "https://images.pexels.com/photos/13083400/pexels-photo-13083400.jpeg"
+		},
+		{    "id": 4,
+            "username": "its_ur_bhuvi",
+			"caption": "Learning new programming",
+			"imageurl": "https://images.pexels.com/photos/577585/pexels-photo-577585.jpeg"
+		},
+		{
+            "id": 5,
+            "username": "its_ur_bhuvi",
+			"caption": "Programming world",
+			"imageurl": "https://images.pexels.com/photos/285814/pexels-photo-285814.jpeg"
+		},
+		{
+            "id": 6,
+            "username": "its_ur_bhuvi",
+			"caption": "Ios Developement 2022",
+			"imageurl": "https://images.pexels.com/photos/5082581/pexels-photo-5082581.jpeg"
+		}
+	]
+}
