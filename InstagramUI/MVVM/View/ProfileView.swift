@@ -204,7 +204,7 @@ struct ProfileView: View {
         //Avatar and posts follower and following section
         HStack(spacing: 2){
             Button(action: {}) {
-                Image(uiImage: UIImage.init(named: "Avatar+white")!)
+                Image(uiImage: UIImage.init(named: "avtar")!)
                     .resizable()
                     .aspectRatio( contentMode: .fill)
                     .frame(width: 80, height: 80)
@@ -352,7 +352,7 @@ struct ProfileView: View {
         NavigationView {
             VStack{
                 HeaderView()
-                Divider().padding(.top)
+               
                 
                 GeometryReader{proxy -> Color in
                     let minY = proxy.frame(in: .global).minY

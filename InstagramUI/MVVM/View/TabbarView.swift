@@ -89,8 +89,8 @@ struct TabbarItems:View{
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 25, height: 25,alignment: .center)
-                    .foregroundColor(Color(red: 32/255, green: 43/255, blue: 63/255))
-                    .opacity(selectedTabIndex == index ? 1 : 0.4)
+                    .foregroundColor(.primary)
+                   // .opacity(selectedTabIndex == index ? 1 : 0.4)
                 
             }
         }

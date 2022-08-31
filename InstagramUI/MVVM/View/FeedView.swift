@@ -9,7 +9,7 @@ import SwiftUI
 
 struct FeedView: View {
     @ObservedObject var viewModel = FeedViewModel()
-    
+    @Environment(\.colorScheme) var colorScheme
     var body: some View {
         NavigationView{
             VStack{
@@ -22,14 +22,9 @@ struct FeedView: View {
                                 .aspectRatio( contentMode: .fit)
                                 .frame(width: 220, height: 50, alignment: .leading)
                             
-                            
-                            
                         }
                     }
                     Spacer(minLength: 0)
-                    
-                    
-                    
                     Button(action: {}) {
                         Image(uiImage: UIImage.init(systemName: "plus.app")!)
                             .resizable()
@@ -41,7 +36,7 @@ struct FeedView: View {
                     Button(action: {}) {
                         Image(uiImage: UIImage.init(named: "messanger")!)
                             .resizable()
-                            .aspectRatio( contentMode: .fill)
+                            .aspectRatio( contentMode: .fit)
                             .frame(width: 25, height: 25, alignment: .leading)
                             .foregroundColor(.primary)
                         
@@ -49,17 +44,15 @@ struct FeedView: View {
                     
                     
                 }.padding([.horizontal,.top])
-                //        ScrollView(.vertical, showsIndicators: false) {
-                
-                //            VStack{
+               
                 List(){
                     Section() {
                         ScrollView(.horizontal, showsIndicators: false) {
                             
                             HStack{
+                                Spacer(minLength: 10)
                                 ForEach(0 ..< (self.viewModel.hightlights?.count ?? 0)) { value in
                                     Button(action: {
-                                        
                                         
                                     }) {
                                         VStack{
@@ -91,14 +84,14 @@ struct FeedView: View {
                                 .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
                         }
                     }
-                    //                }
-                    //            }.frame(width: UIScreen.main.bounds.width)
-                }.frame(width: UIScreen.main.bounds.width)
+                   
+                }.background(Colors.theme1.contentDefaultColor)
+                .frame(width: UIScreen.main.bounds.width)
                     .listStyle(PlainListStyle())
-            }
+            }.background(Colors.theme1.contentDefaultColor)
             .navigationBarTitle("")
-                .navigationBarHidden(true)
-
+            .navigationBarHidden(true)
+            
         }
         
     }

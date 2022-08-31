@@ -21,10 +21,10 @@ struct EditProfileView: View {
         HStack{
             
             VStack{
-                Image(uiImage: UIImage.init(named: "Avatar+white")!)
+                Image(uiImage: UIImage.init(named: "avtar")!)
                     .resizable()
-                    .frame(width: 80, height: 80)
-                    .cornerRadius(40)
+                    .frame(width: 90, height: 90)
+                    .cornerRadius(45)
                     .foregroundColor(.primary)
                 
                 Button(action: {
@@ -139,13 +139,15 @@ struct EditProfileView: View {
                     }.padding(5)
                     
                     
-                    Text("Business Infomation")
+                    HStack{ Text("Business Infomation")
                         .font(.system(size: 18))
                         .fontWeight(.medium)
                         .foregroundColor(.primary)
                         .frame(alignment: .leading)
                         .padding()
-                    
+                        
+                        Spacer()
+                    }
                     
                     HStack{
                         Text("Page")
@@ -160,7 +162,7 @@ struct EditProfileView: View {
                             .foregroundColor(.gray)
                             .frame(alignment: .trailing)
                         
-                    }.padding(.bottom)
+                    }.padding([.bottom,.leading])
                     
                     
                     HStack{
@@ -176,7 +178,7 @@ struct EditProfileView: View {
                             .foregroundColor(.gray)
                             .frame(alignment: .trailing)
                         
-                    }.padding(.bottom)
+                    }.padding([.bottom,.leading])
                     
                     HStack{
                         Text("Contact Option")
@@ -191,7 +193,7 @@ struct EditProfileView: View {
                             .foregroundColor(.gray)
                             .frame(alignment: .trailing)
                         
-                    }.padding(.bottom)
+                    }.padding([.bottom,.leading])
                     
                     
                     

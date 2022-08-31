@@ -35,33 +35,21 @@
         }
     ],
     
-	"feed": [{
-            "id": 1,
+	"feed": [
+        {
+            "id": 12,
             "username": "its_ur_bhuvi",
-			"caption": "Clicked by Brunno Rodrigues",
-			"imageurl": "https://images.pexels.com/photos/9318388/pexels-photo-9318388.jpeg",
-            "location": "Chandigarh,IN"
-		},
-		{
-            "id": 2,
-            "username": "its_ur_bhuvi",
-			"caption": "Girl with camera",
-			"imageurl": "https://images.pexels.com/photos/9056599/pexels-photo-9056599.jpeg",
+            "caption": "Beach  🌊🏄🏝️",
+            "imageurl": "https://images.pexels.com/photos/994605/pexels-photo-994605.jpeg",
             "location": "Noida,IN"
-		},
-		{
-            "id": 3,
-            "username": "its_ur_bhuvi",
-			"caption": "Desktop application",
-			"imageurl": "https://images.pexels.com/photos/13083400/pexels-photo-13083400.jpeg",
-            "location": "Noida,IN"
-		},
-		{    "id": 4,
-            "username": "its_ur_bhuvi",
-			"caption": "Learning new programming",
-			"imageurl": "https://images.pexels.com/photos/577585/pexels-photo-577585.jpeg",
-            "location": "India"
-		},
+        },
+       {
+           "id": 43,
+           "username": "its_ur_bhuvi",
+           "caption": "Beach Photography",
+           "imageurl": "https://images.pexels.com/photos/9056599/pexels-photo-9056599.jpeg",
+           "location": "Noida,IN"
+       },
 		{
             "id": 5,
             "username": "its_ur_bhuvi",
@@ -69,6 +57,12 @@
 			"imageurl": "https://images.pexels.com/photos/285814/pexels-photo-285814.jpeg",
             "location": "India"
 		},
+        {    "id": 43,
+            "username": "its_ur_bhuvi",
+            "caption": "Learning new programming",
+            "imageurl": "https://images.pexels.com/photos/577585/pexels-photo-577585.jpeg",
+            "location": "India"
+        },
 		{
             "id": 6,
             "username": "its_ur_bhuvi",
@@ -77,9 +71,24 @@
             "location": "India"
 		},
         {
-            "id": 2,
+            "id": 1,
             "username": "its_ur_bhuvi",
-            "caption": "Girl with camera",
+            "caption": "Clicked by Brunno Rodrigues",
+            "imageurl": "https://images.pexels.com/photos/9318388/pexels-photo-9318388.jpeg",
+            "location": "Chandigarh,IN"
+        },
+      
+        {
+            "id": 3,
+            "username": "its_ur_bhuvi",
+            "caption": "Desktop application",
+            "imageurl": "https://images.pexels.com/photos/13083400/pexels-photo-13083400.jpeg",
+            "location": "Noida,IN"
+        },
+        {
+            "id": 22,
+            "username": "its_ur_bhuvi",
+            "caption": "Photograhy",
             "imageurl": "https://images.pexels.com/photos/9056599/pexels-photo-9056599.jpeg",
             "location": "India"
         },
@@ -104,7 +113,7 @@
             "location": "India"
         },
         {
-            "id": 6,
+            "id": 16,
             "username": "its_ur_bhuvi",
             "caption": "Ios Developement 2022",
             "imageurl": "https://images.pexels.com/photos/5082581/pexels-photo-5082581.jpeg",
