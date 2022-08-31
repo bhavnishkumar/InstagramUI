@@ -9,11 +9,13 @@ import SwiftUI
 
 struct EditProfileView: View {
     @Environment(\.presentationMode) var presentation
-    @State var name:String = "Bhavnish"
-    @State var username:String = "its_ur_bhuvi"
-    @State var website:String = "https://github.com/bhavnishkumar"
-    @State var bio:String = "🙋🏻‍♂️ Turning ideas into apps since 2019\n💸 Vision: live free \n⚒ Follow the journey \n👨🏻‍💻#iosdev #iosdev #coding"
-   
+    var userprofile: Userprofile
+    
+    @State var name:String = ""
+    @State var username:String =  ""
+    @State var website:String = ""
+    @State var bio:String =  ""
+    
     
     fileprivate func ChoosePhoto() -> some View {
         HStack{
@@ -199,11 +201,13 @@ struct EditProfileView: View {
         }.background(Colors.theme1.contentDefaultColor)
             .navigationBarTitle("")
             .navigationBarHidden(true)
+            .onAppear {
+                
+                name = userprofile.fullname ?? ""
+                username = userprofile.username ?? ""
+                website = userprofile.link ?? ""
+                bio = userprofile.bio ?? ""
+            }
         
-    }
-}
-struct EditProfileView_Previews: PreviewProvider {
-    static var previews: some View {
-        EditProfileView()
     }
 }

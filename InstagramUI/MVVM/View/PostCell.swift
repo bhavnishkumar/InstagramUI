@@ -33,7 +33,7 @@ struct PostCell: View {
             
             Image(systemName: "ellipsis").padding()
                 .rotationEffect(.degrees(90))
-        }
+        }.frame(width:UIScreen.main.bounds.width)
     }
     
     var actionButtons: some View {
@@ -43,6 +43,7 @@ struct PostCell: View {
                 .renderingMode(.template)
                 .resizable()
                 .frame(width: 20, height: 20)
+                .aspectRatio( contentMode: .fill)
                 .foregroundColor(self.liked ? .red : Color(.label))
                 .onTapGesture {
                     self.liked.toggle()
@@ -50,6 +51,7 @@ struct PostCell: View {
             .padding(.init(top: 0, leading: 12, bottom: 0, trailing: 8))
             
             Image(systemName: "bubble.left")
+                .aspectRatio( contentMode: .fill)
             .padding(.init(top: 0, leading: 8, bottom: 0, trailing: 8))
             
             Image(systemName: "paperplane")
@@ -65,13 +67,17 @@ struct PostCell: View {
             
         }
         .font(.system(size: 21, weight: .light))
-        .padding([.top, .bottom])
+        .padding([.top])
         .fixedSize(horizontal: false, vertical: true)
     }
     
     var textContent: some View {
         VStack(alignment: .leading, spacing: 4) {
-            
+            Text("322 likes")
+                
+                .font(.system(size: 14)).bold()
+                .padding([.leading, .trailing])
+                .frame(maxWidth: .infinity, alignment: .leading)
             Group {
                 Text("\(post.username) ").font(.system(size: 14)).bold() +
                     Text(post.caption).font(.system(size: 14))
@@ -90,8 +96,9 @@ struct PostCell: View {
         VStack {
             header
             
+            
             AsyncImage(url: URL(string: post.imageurl)!,
-                          placeholder: { Text("Loading ...") },
+                          placeholder: { ProgressView() },
                        image: { Image(uiImage: $0)
                 .resizable()
              })

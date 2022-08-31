@@ -407,7 +407,7 @@ struct ProfileView: View {
                     
                 }
                 
-                NavigationLink(destination: EditProfileView(), isActive: self.$isEditProfile) {
+                NavigationLink(destination: EditProfileView( userprofile: self.viewModel.userprofile!) , isActive: self.$isEditProfile) {
                    EmptyView()
                 }.hidden()
                    
