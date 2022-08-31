@@ -14,8 +14,6 @@ struct FeedView: View {
         HStack(spacing: 12){
             Button(action: {}) {
                 HStack{
-                    
-                    
                     Image(uiImage: UIImage.init(named: "Instagram_Logo_Large")!)
                     
                         .resizable()
@@ -31,7 +29,7 @@ struct FeedView: View {
             
             
             Button(action: {}) {
-                Image(uiImage: UIImage.init(named: "add")!)
+                Image(uiImage: UIImage.init(systemName: "plus.app")!)
                     .resizable()
                     .aspectRatio( contentMode: .fill)
                     .frame(width: 25, height: 25, alignment: .leading)
@@ -49,13 +47,19 @@ struct FeedView: View {
             
             
         }.padding([.horizontal,.top])
-        ScrollView(.vertical, showsIndicators: false) {
-            VStack{
+        //        ScrollView(.vertical, showsIndicators: false) {
+        
+        //            VStack{
+        List(){
+            Section() {
                 ScrollView(.horizontal, showsIndicators: false) {
                     
                     HStack{
                         ForEach(0 ..< (self.viewModel.hightlights?.count ?? 0)) { value in
-                            Button(action: {}) {
+                            Button(action: {
+                                
+                                
+                            }) {
                                 VStack{
                                     Image(uiImage: UIImage.init(named:self.viewModel.hightlights?[value].hightlightImg ?? "")!)
                                         .resizable()
@@ -74,15 +78,21 @@ struct FeedView: View {
                                 }
                             }.padding(2)
                         }
-                    }.padding()
-                }
-                VStack{
-                    ForEach(viewModel.feedlist ?? []) { feed in
-                        PostCell(post: feed)
                     }
+                }.listRowInsets(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0))
+                    .listRowSeparator(.hidden)
+                       
+            }
+            Section() {
+                ForEach(viewModel.feedlist ?? []) { feed in
+                    PostCell(post: feed)
+                        .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
                 }
-            }.frame(width: UIScreen.main.bounds.width)
-        }
+            }
+            //                }
+            //            }.frame(width: UIScreen.main.bounds.width)
+        }.frame(width: UIScreen.main.bounds.width)
+            .listStyle(PlainListStyle())
     }
 }
 

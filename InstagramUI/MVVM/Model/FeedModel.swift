@@ -18,4 +18,5 @@ struct Feed: Codable,Identifiable {
     let id: Int
     let username, caption: String
     let imageurl: String
+    let location:String
 }
