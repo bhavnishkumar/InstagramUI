@@ -82,13 +82,13 @@ struct TabbarItems:View{
             selectedTabIndex = index
             action?()
         }) {
-            VStack(spacing:12){
+            VStack(spacing:15){
                 (
                     isSystemImage ? Image(systemName: image) : Image(image)
                 ).renderingMode(.template)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: 25, height: 25,alignment: .center)
+                    .frame(width: 22, height: 22,alignment: .center)
                     .foregroundColor(.primary)
                    // .opacity(selectedTabIndex == index ? 1 : 0.4)
                 

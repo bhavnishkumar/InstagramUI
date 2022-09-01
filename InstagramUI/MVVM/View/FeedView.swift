@@ -13,38 +13,35 @@ struct FeedView: View {
     var body: some View {
         NavigationView{
             VStack{
-                HStack(spacing: 12){
-                    Button(action: {}) {
-                        HStack{
-                            Image(uiImage: UIImage.init(named: "Instagram_logo")!)
-                            
-                                .resizable()
-                                .aspectRatio( contentMode: .fit)
-                                .frame(width: 220, height: 50, alignment: .leading)
-                            
-                        }
-                    }
+                HStack(spacing: 10){
+                    
+                    Image(uiImage: UIImage.init(named: "Instagram_logo")!)
+                        .resizable()
+                        .aspectRatio( contentMode: .fit)
+                        .frame(width: 180, height: 46, alignment: .leading)
+                    
+                    
                     Spacer(minLength: 0)
                     Button(action: {}) {
                         Image(uiImage: UIImage.init(systemName: "plus.app")!)
                             .resizable()
+                            .frame(width: 22, height: 22)
                             .aspectRatio( contentMode: .fit)
-                            .frame(width: 25, height: 25, alignment: .leading)
                             .foregroundColor(.primary)
                         
                     }
                     Button(action: {}) {
                         Image(uiImage: UIImage.init(named: "messanger")!)
                             .resizable()
+                            .frame(width: 22, height: 22)
                             .aspectRatio( contentMode: .fit)
-                            .frame(width: 25, height: 25, alignment: .leading)
                             .foregroundColor(.primary)
                         
                     }
                     
                     
                 }.padding([.horizontal,.top])
-               
+                
                 List(){
                     Section() {
                         ScrollView(.horizontal, showsIndicators: false) {
@@ -59,11 +56,11 @@ struct FeedView: View {
                                             Image(uiImage: UIImage.init(named:self.viewModel.hightlights?[value].hightlightImg ?? "")!)
                                                 .resizable()
                                                 .aspectRatio( contentMode: .fill)
-                                                .frame(width: 65, height: 65)
+                                                .frame(width: 60, height: 60)
                                                 .clipShape(Circle())
-                                                .cornerRadius(32.5)
+                                                .cornerRadius(30)
                                                 .overlay(
-                                                    RoundedRectangle(cornerRadius: 32.5)
+                                                    RoundedRectangle(cornerRadius: 30)
                                                         .stroke(Color.gray.opacity(0.4), lineWidth: 2)
                                                 )
                                             Text(self.viewModel.hightlights?[value].hightlightText ?? "")
@@ -84,13 +81,13 @@ struct FeedView: View {
                                 .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
                         }
                     }
-                   
+                    
                 }.background(Colors.theme1.contentDefaultColor)
-                .frame(width: UIScreen.main.bounds.width)
+                    .frame(width: UIScreen.main.bounds.width)
                     .listStyle(PlainListStyle())
             }.background(Colors.theme1.contentDefaultColor)
-            .navigationBarTitle("")
-            .navigationBarHidden(true)
+                .navigationBarTitle("")
+                .navigationBarHidden(true)
             
         }
         
