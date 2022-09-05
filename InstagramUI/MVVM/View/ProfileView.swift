@@ -20,6 +20,7 @@ struct ProfileView: View {
     @State private var offset: CGFloat = 0
     @State private var stickyHeaderOffset: CGFloat = 0
     @State var isEditProfile:Bool = false
+    @State private var tabBar: UITabBar! = nil
     
     //MARK:- Dynamics Buttons Profile
     fileprivate func DyanmicsButtons() -> some View {
@@ -349,10 +350,9 @@ struct ProfileView: View {
     
     
     var body: some View {
-        NavigationView {
             VStack{
                 HeaderView()
-               
+                
                 
                 GeometryReader{proxy -> Color in
                     let minY = proxy.frame(in: .global).minY
@@ -407,15 +407,19 @@ struct ProfileView: View {
                     
                 }
                 
-                NavigationLink(destination: EditProfileView( userprofile: self.viewModel.userprofile!) , isActive: self.$isEditProfile) {
-                   EmptyView()
+               
+                NavigationLink(destination: EditProfileView( userprofile: self.viewModel.userprofile!)
+//                                .onAppear { self.tabBar.isHidden = true }     // !!
+//                                .onDisappear { self.tabBar.isHidden = false } // !!
+//                               
+                               
+                               , isActive: self.$isEditProfile) {
+                    EmptyView()
                 }.hidden()
-                   
             }
+           
             .background(Colors.theme1.contentDefaultColor)
-            .navigationBarTitle("")
-                .navigationBarHidden(true)
-        }
+
     }
     
     
@@ -467,3 +471,33 @@ struct TabbarButton:View{
 //    }
 //}
 //
+
+
+// Helper bridge to UIViewController to access enclosing UITabBarController
+// and thus its UITabBar
+struct TabBarAccessor: UIViewControllerRepresentable {
+    var callback: (UITabBar) -> Void
+    private let proxyController = ViewController()
+    
+    func makeUIViewController(context: UIViewControllerRepresentableContext<TabBarAccessor>) ->
+    UIViewController {
+        proxyController.callback = callback
+        return proxyController
+    }
+    
+    func updateUIViewController(_ uiViewController: UIViewController, context: UIViewControllerRepresentableContext<TabBarAccessor>) {
+    }
+    
+    typealias UIViewControllerType = UIViewController
+    
+    private class ViewController: UIViewController {
+        var callback: (UITabBar) -> Void = { _ in }
+        
+        override func viewWillAppear(_ animated: Bool) {
+            super.viewWillAppear(animated)
+            if let tabBar = self.tabBarController {
+                self.callback(tabBar.tabBar)
+            }
+        }
+    }
+}

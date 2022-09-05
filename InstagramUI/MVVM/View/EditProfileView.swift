@@ -15,7 +15,8 @@ struct EditProfileView: View {
     @State var username:String =  ""
     @State var website:String = ""
     @State var bio:String =  ""
-    
+    @State private var tabBar: UITabBar! = nil
+
     
     fileprivate func ChoosePhoto() -> some View {
         HStack{
@@ -200,16 +201,23 @@ struct EditProfileView: View {
                 }.padding()
             }
             
-        }.background(Colors.theme1.contentDefaultColor)
+        }
+          
+           .background(Colors.theme1.contentDefaultColor)
             .navigationBarTitle("")
             .navigationBarHidden(true)
             .onAppear {
-                
                 name = userprofile.fullname ?? ""
                 username = userprofile.username ?? ""
                 website = userprofile.link ?? ""
                 bio = userprofile.bio ?? ""
+                
+               // TabbarView.shared.hidetabbar = true
+            }.onDisappear {
+               // TabbarView.shared.hidetabbar = false
             }
+           
+     
         
     }
 }
