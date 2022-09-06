@@ -23,17 +23,17 @@ struct FeedView: View {
                 
                 Spacer(minLength: 0)
                 Button(action: {}) {
-                    Image(uiImage: UIImage.init(systemName: "plus.app")!)
+                    Image("add")
                         .resizable()
-                        .frame(width: 22, height: 22)
+                        .frame(width: 25, height: 25)
                         .aspectRatio( contentMode: .fit)
                         .foregroundColor(.primary)
                     
                 }
                 Button(action: {}) {
-                    Image(uiImage: UIImage.init(named: "messanger")!)
+                    Image("messenger")
                         .resizable()
-                        .frame(width: 22, height: 22)
+                        .frame(width: 25, height: 25)
                         .aspectRatio( contentMode: .fit)
                         .foregroundColor(.primary)
                     
@@ -50,8 +50,8 @@ struct FeedView: View {
                             Spacer(minLength: 10)
                             ForEach(0 ..< (self.viewModel.hightlights?.count ?? 0)) { value in
                                 Button(action: {
-                                    isToast = !isToast
-                                    Banner(data: Banner.BannerDataModel.init(title: "", detail: "You have clicked in \(value)", type: .info), show: $isToast)
+                                    
+                                    
                                 }) {
                                     VStack{
                                         Image(uiImage: UIImage.init(named:self.viewModel.hightlights?[value].hightlightImg ?? "")!)
@@ -78,8 +78,12 @@ struct FeedView: View {
                 }
                 Section() {
                     ForEach(viewModel.feedlist ?? []) { feed in
-                        PostCell(post: feed)
+                        
+                        PostCell(post: feed, likedcallback: { status in
+                            isToast = true
+                        })
                             .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+                        
                     }
                 }
                 
@@ -87,6 +91,8 @@ struct FeedView: View {
                 .frame(width: UIScreen.main.bounds.width)
                 .listStyle(PlainListStyle())
         }.background(Colors.theme1.contentDefaultColor)
+            .overlay(overlayView: Banner.init(data: Banner.BannerDataModel(title: "Instagram post", detail: "You have clicked on Liked", type: .info), show: $isToast)
+                     , show: $isToast)
         
         
     }

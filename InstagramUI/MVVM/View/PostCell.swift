@@ -13,6 +13,7 @@ struct PostCell: View {
     
     @State var liked = false
     @State var saveFeed = false
+    var likedcallback : (Bool) -> ()
     
     var header: some View {
         HStack {
@@ -20,7 +21,7 @@ struct PostCell: View {
                 .resizable()
                 .aspectRatio(contentMode: .fill)
                 .clipped()
-                .frame(width: 50, height: 50)
+                .frame(width: 40, height: 40)
                 .clipShape(Circle())
                 .padding(.leading)
             
@@ -38,28 +39,27 @@ struct PostCell: View {
     
     var actionButtons: some View {
         HStack {
-            Image(systemName: self.liked ? "heart.fill" : "heart")
-            
-                .renderingMode(.template)
+            Image(self.liked ? "fill_heart" : "heart")
                 .resizable()
-                .frame(width: 20, height: 20)
+                .frame(width: 24, height: 24)
                 .aspectRatio( contentMode: .fill)
-                .foregroundColor(self.liked ? .red : Color(.label))
+               // .foregroundColor(self.liked ? .red : Color(.label))
                 .onTapGesture {
                     self.liked.toggle()
+                    self.likedcallback(self.liked)
                 }
-                .padding(.init(top: 0, leading: 12, bottom: 0, trailing: 8))
+                .padding(.init(top: 0, leading: 10, bottom: 0, trailing: 2))
             
-            Image(systemName: "bubble.left")
+            Image("comment")
                 .aspectRatio( contentMode: .fill)
-                .padding(.init(top: 0, leading: 8, bottom: 0, trailing: 8))
+                .padding(.init(top: 0, leading: 5, bottom: 0, trailing: 2))
             
-            Image(systemName: "paperplane")
-                .padding(.init(top: 0, leading: 8, bottom: 0, trailing: 8))
+            Image("share")
+                .padding(.init(top: 0, leading: 5, bottom: 0, trailing: 2))
             
             Spacer()
             
-            Image(systemName: self.saveFeed ? "bookmark.fill" : "bookmark")
+            Image(self.saveFeed ? "bookmark" : "bookmark")
                 .padding(.init(top: 0, leading: 8, bottom: 0, trailing: 8))
                 .onTapGesture {
                     self.saveFeed.toggle()
@@ -113,5 +113,6 @@ struct PostCell: View {
             
             Spacer()
         }.background(.clear)
+            .listRowSeparator(.hidden)
     }
 }

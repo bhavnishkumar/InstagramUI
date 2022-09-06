@@ -75,7 +75,7 @@ struct Banner: View {
                     self.show = false
                 }
             }.onAppear(perform: {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3.5) {
                     withAnimation {
                         self.show = false
                     }
@@ -83,3 +83,26 @@ struct Banner: View {
             })
     }
 }
+
+
+struct Overlay<T: View>: ViewModifier {
+    
+    @Binding var show: Bool
+    let overlayView: T
+    
+    func body(content: Content) -> some View {
+        ZStack {
+            content
+            if show {
+                overlayView
+            }
+        }
+    }
+}
+
+extension View {
+    func overlay<T: View>( overlayView: T, show: Binding<Bool>) -> some View {
+        self.modifier(Overlay.init(show: show, overlayView: overlayView))
+    }
+}
+

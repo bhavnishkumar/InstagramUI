@@ -21,6 +21,7 @@ struct ProfileView: View {
     @State private var stickyHeaderOffset: CGFloat = 0
     @State var isEditProfile:Bool = false
     @State private var tabBar: UITabBar! = nil
+    @State var isToast = false
     
     //MARK:- Dynamics Buttons Profile
     fileprivate func DyanmicsButtons() -> some View {
@@ -271,11 +272,18 @@ struct ProfileView: View {
                         
                         let width = proxy.frame(in: .global).width
                         let image =  "post\(index)"
-                        Image(image)
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: width, height:  width )
-                            .cornerRadius(3)
+                        
+                        Button {
+                            self.isToast = true
+                        } label: {
+                            Image(image)
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: width, height:  width )
+                                .cornerRadius(3)
+                        }
+                        
+                        
                         
                     }.frame(height: 120 )
                     
@@ -299,13 +307,17 @@ struct ProfileView: View {
                         
                         let width = proxy.frame(in: .global).width
                         let image =  "post\(index)"
+                        Button {
+                            self.isToast = true
+                        } label: {
+                            
                         Image(image)
                             .resizable()
                             .aspectRatio(contentMode: .fill)
                             .frame(width: width, height: 180)
                             .cornerRadius(3)
                         
-                        
+                        }
                     }.frame(height: 180)
                 }
                 
@@ -327,11 +339,17 @@ struct ProfileView: View {
                         
                         let width = proxy.frame(in: .global).width
                         let image =  "post\(index)"
+                        
+                        Button {
+                            self.isToast = true
+                        } label: {
+                            
                         Image(image)
                             .resizable()
                             .aspectRatio(contentMode: .fill)
                             .frame(width: width, height:  width )
                             .cornerRadius(3)
+                        }
                         
                         
                     }.frame(height: 120)
@@ -350,76 +368,79 @@ struct ProfileView: View {
     
     
     var body: some View {
-            VStack{
-                HeaderView()
-                
-                
-                GeometryReader{proxy -> Color in
-                    let minY = proxy.frame(in: .global).minY
-                    DispatchQueue.main.async {
-                        if stickyHeaderOffset == 0{
-                            stickyHeaderOffset = minY
-                        }
+        VStack{
+            HeaderView()
+            GeometryReader{proxy -> Color in
+                let minY = proxy.frame(in: .global).minY
+                print("minY:\(minY)")
+                DispatchQueue.main.async {
+                    if stickyHeaderOffset == 0{
+                        stickyHeaderOffset = minY
                     }
-                    return Color.clear
-                    
-                }.frame(width: 0, height: 0)
-                //Scroll Outside wrapper
-                ScrollView(.vertical, showsIndicators: false) {
-                    
-                    profileinfo()
-                    
-                    BioInformation()
-                    
-                    DyanmicsButtons()
-                    
-                    highlights() //Highlights
-                    
-                    //header tabbar with sticky
-                    GeometryReader{proxy -> AnyView in
-                        let minY = proxy.frame(in: .global).minY
-                        print("stickyHeaderOffset:\(stickyHeaderOffset)")
-                        let offset =   minY - stickyHeaderOffset
-                        print("offset:\(offset)")
-                        return AnyView(
-                            HStack(spacing:0){
-                                
-                                TabbarButton(image: "pixels", isSystemImage: false, animatation: animation,index: 0,selectedTabIndex: $selectedTab) {
-                                    selectedTab = 0
-                                }
-                                TabbarButton(image: "video", isSystemImage: false, animatation: animation,index: 1,selectedTabIndex: $selectedTab) {
-                                    selectedTab = 1
-                                }
-                                TabbarButton(image: "person.crop.square", isSystemImage: true, animatation: animation,index:2,selectedTabIndex: $selectedTab) {
-                                    selectedTab = 2
-                                }
-                                
-                            }.frame( height: 45,alignment: .bottom)
-                                .padding(0)
-                                .background(Colors.backrground.contentDefaultColor)
-                                .offset(y: offset < 0 ? -offset : 0)
-                        )
-                        
-                    }.frame( height: 45)
-                        .zIndex(4)
-                    
-                    Grids()
-                    
                 }
+                return Color.clear
                 
-               
-                NavigationLink(destination: EditProfileView( userprofile: self.viewModel.userprofile!)
-//                                .onAppear { self.tabBar.isHidden = true }     // !!
-//                                .onDisappear { self.tabBar.isHidden = false } // !!
-//                               
-                               
-                               , isActive: self.$isEditProfile) {
-                    EmptyView()
-                }.hidden()
+            }.frame(width: 0, height: 0)
+            //Scroll Outside wrapper
+            ScrollView(.vertical, showsIndicators: false) {
+                
+                profileinfo()
+                
+                BioInformation()
+                
+                DyanmicsButtons()
+                
+                highlights() //Highlights
+                
+                //header tabbar with sticky
+                GeometryReader{proxy -> AnyView in
+                    let minY = proxy.frame(in: .global).minY
+                    print("minY:\(minY)")
+                    
+//                    print("stickyHeaderOffset:\(stickyHeaderOffset)")
+                    let offset =   minY - stickyHeaderOffset
+                    print("offset:\(offset)")
+                    return AnyView(
+                        HStack(spacing:0){
+                            
+                            TabbarButton(image: "pixels", isSystemImage: false, animatation: animation,index: 0,selectedTabIndex: $selectedTab) {
+                                selectedTab = 0
+                            }
+                            TabbarButton(image: "video", isSystemImage: false, animatation: animation,index: 1,selectedTabIndex: $selectedTab) {
+                                selectedTab = 1
+                            }
+                            TabbarButton(image: "person.crop.square", isSystemImage: true, animatation: animation,index:2,selectedTabIndex: $selectedTab) {
+                                selectedTab = 2
+                            }
+                            
+                        }.frame( height: 45,alignment: .bottom)
+                            .padding(0)
+                            .background(Colors.backrground.contentDefaultColor)
+                            .offset(y: offset < 0 ? -offset : 0)
+                    )
+                    
+                }.frame( height: 45)
+                    .zIndex(4)
+                
+                Grids()
+                
             }
-           
-            .background(Colors.theme1.contentDefaultColor)
-
+            
+            
+            NavigationLink(destination: EditProfileView( userprofile: self.viewModel.userprofile!)
+                           //                                .onAppear { self.tabBar.isHidden = true }     // !!
+                           //                                .onDisappear { self.tabBar.isHidden = false } // !!
+                           //
+                           
+                           , isActive: self.$isEditProfile) {
+                EmptyView()
+            }.hidden()
+        }
+        
+        .background(Colors.theme1.contentDefaultColor)
+        .overlay(overlayView: Banner.init(data: Banner.BannerDataModel(title: "Instagram", detail: "You have clicked on Item", type: .info), show: $isToast)
+                 , show: $isToast)
+        
     }
     
     
@@ -472,32 +493,3 @@ struct TabbarButton:View{
 //}
 //
 
-
-// Helper bridge to UIViewController to access enclosing UITabBarController
-// and thus its UITabBar
-struct TabBarAccessor: UIViewControllerRepresentable {
-    var callback: (UITabBar) -> Void
-    private let proxyController = ViewController()
-    
-    func makeUIViewController(context: UIViewControllerRepresentableContext<TabBarAccessor>) ->
-    UIViewController {
-        proxyController.callback = callback
-        return proxyController
-    }
-    
-    func updateUIViewController(_ uiViewController: UIViewController, context: UIViewControllerRepresentableContext<TabBarAccessor>) {
-    }
-    
-    typealias UIViewControllerType = UIViewController
-    
-    private class ViewController: UIViewController {
-        var callback: (UITabBar) -> Void = { _ in }
-        
-        override func viewWillAppear(_ animated: Bool) {
-            super.viewWillAppear(animated)
-            if let tabBar = self.tabBarController {
-                self.callback(tabBar.tabBar)
-            }
-        }
-    }
-}
