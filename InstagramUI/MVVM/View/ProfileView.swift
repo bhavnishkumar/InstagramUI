@@ -368,6 +368,7 @@ struct ProfileView: View {
     
     
     var body: some View {
+      //  NavigationView {
         VStack{
             HeaderView()
             GeometryReader{proxy -> Color in
@@ -436,12 +437,15 @@ struct ProfileView: View {
                 EmptyView()
             }.hidden()
         }
-        
+        .navigationTitle("")
+       .navigationBarHidden(true)
         .background(Colors.theme1.contentDefaultColor)
         .overlay(overlayView: Banner.init(data: Banner.BannerDataModel(title: "Instagram", detail: "You have clicked on Item", type: .info), show: $isToast)
                  , show: $isToast)
+        }
+           
         
-    }
+   // }
     
     
 }

@@ -26,7 +26,7 @@ struct SpalshView: View {
                 }
                 VStack{
                     Text("from")
-                    Image("meta")
+                    Image("Instagram-Meta-Gradient-Logo-SVG-1")
                         .resizable()
                         .frame(width: 100, height: 30)
                     
