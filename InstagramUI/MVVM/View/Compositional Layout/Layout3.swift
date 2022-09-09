@@ -13,8 +13,9 @@ struct Layout3: View {
     
     var body: some View {
         HStack(spacing:4){
-            HStack{
-                VStack(spacing:2){
+            HStack(spacing:4){
+                
+                VStack(spacing:4){
                     
                     AnimatedImage(url: URL(string: cards[safe: 0]?.downloadURL ?? ""))
                         .resizable()
@@ -28,15 +29,15 @@ struct Layout3: View {
                         .frame(width:  (width / 3), height:  (width / 3))
                         .cornerRadius(4)
                 }
-            VStack(spacing:2){
+                VStack(spacing:4){
                     
-                AnimatedImage(url: URL(string: cards[safe: 2]?.downloadURL ?? ""))
+                    AnimatedImage(url: URL(string: cards[safe: 2]?.downloadURL ?? ""))
                         .resizable()
                         .aspectRatio( contentMode: .fill)
                         .frame(width:   (width / 3), height:  (width / 3))
                         .cornerRadius(4)
                     
-                AnimatedImage(url: URL(string: cards[safe :3]?.downloadURL ?? ""))
+                    AnimatedImage(url: URL(string: cards[safe :3]?.downloadURL ?? ""))
                         .resizable()
                         .aspectRatio( contentMode: .fill)
                         .frame(width:  (width / 3), height:  (width / 3))

@@ -12,6 +12,7 @@ struct SearchView: View {
     @StateObject var viewModel = SearchViewModel()
     var body: some View {
         VStack{
+            Spacer()
             HStack{
                 HStack{
                     Image(systemName: "magnifyingglass")
@@ -23,7 +24,7 @@ struct SearchView: View {
                     .padding(.horizontal)
                     .background(.gray.opacity(0.2))
                     .cornerRadius(8)
-            }.padding(10)
+            }.padding(.horizontal,10)
         
         if viewModel.cards.isEmpty{
             ProgressView().frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -43,7 +44,7 @@ struct SearchView: View {
                       
                     }
                   
-                }.padding(.horizontal)
+                }.padding()
             }.padding()
         }
             

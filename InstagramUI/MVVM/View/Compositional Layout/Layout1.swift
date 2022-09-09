@@ -8,7 +8,7 @@
 import SwiftUI
 import SDWebImageSwiftUI
 
-var width = UIScreen.main.bounds.width
+var width = UIScreen.main.bounds.width - 20
 struct Layout1: View {
     var cards: [Card]
     
@@ -21,8 +21,8 @@ struct Layout1: View {
                 .frame(width: (width / 3), height: (width / 3) * 2)
                 .cornerRadius(4)
             
-            HStack{
-                VStack(spacing:2){
+            HStack(spacing:4){
+                VStack(spacing:4){
                     
                     AnimatedImage(url: URL(string: cards[1].downloadURL))
                         .resizable()
@@ -36,15 +36,15 @@ struct Layout1: View {
                         .frame(width:  (width / 3), height:  (width / 3))
                         .cornerRadius(4)
                 }
-            VStack(spacing:2){
+                VStack(spacing:4){
                     
-                AnimatedImage(url: URL(string: cards[safe:3]?.downloadURL ?? ""))
+                    AnimatedImage(url: URL(string: cards[safe:3]?.downloadURL ?? ""))
                         .resizable()
                         .aspectRatio( contentMode: .fill)
                         .frame(width:   (width / 3), height:  (width / 3))
                         .cornerRadius(4)
                     
-                AnimatedImage(url: URL(string: cards[safe: 4]?.downloadURL ?? ""))
+                    AnimatedImage(url: URL(string: cards[safe: 4]?.downloadURL ?? ""))
                         .resizable()
                         .aspectRatio( contentMode: .fill)
                         .frame(width:  (width / 3), height:  (width / 3))
@@ -64,8 +64,8 @@ struct Layout1_Previews: PreviewProvider {
 
 
 extension Collection {
-  subscript(safe index: Index) -> Iterator.Element? {
-    guard indices.contains(index) else { return nil }
-    return self[index]
-  }
+    subscript(safe index: Index) -> Iterator.Element? {
+        guard indices.contains(index) else { return nil }
+        return self[index]
+    }
 }
