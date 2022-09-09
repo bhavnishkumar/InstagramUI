@@ -39,7 +39,6 @@ struct ProfileView: View {
                     .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
                     .background((self.viewModel.userprofile?.isFollow ?? false) ?  Color.gray.opacity(0.2) :  .blue )
                     .cornerRadius(8)
-                    .animation(.easeInOut(duration: 1))
                 
                 Button(action: {}) {
                     Text("Message")
@@ -417,11 +416,11 @@ struct ProfileView: View {
                         }.frame( height: 45,alignment: .bottom)
                             .padding(0)
                             .background(Colors.backrground.contentDefaultColor)
-                            .offset(y: offset < 0 ? -offset : 0)
+                            //   .offset(y: offset < 0 ? -offset : 0)
                     )
                     
                 }.frame( height: 45)
-                    .zIndex(4)
+                  //  .zIndex(4)
                 
                 Grids()
                 
@@ -444,9 +443,6 @@ struct ProfileView: View {
                  , show: $isToast)
         }
            
-        
-   // }
-    
     
 }
 
@@ -489,11 +485,3 @@ struct TabbarButton:View{
         
     }
 }
-
-//struct ContentView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ProfileView()
-//    }
-//}
-//
-
