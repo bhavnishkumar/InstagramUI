@@ -15,7 +15,7 @@ struct Layout1: View {
     var body: some View {
         HStack(spacing:4){
             
-            AnimatedImage(url: URL(string: cards[0].downloadURL))
+            AnimatedImage(url: URL(string: cards[safe: 0]?.downloadURL ?? ""))
                 .resizable()
                 .aspectRatio( contentMode: .fill)
                 .frame(width: (width / 3), height: (width / 3) * 2)
@@ -24,7 +24,7 @@ struct Layout1: View {
             HStack(spacing:4){
                 VStack(spacing:4){
                     
-                    AnimatedImage(url: URL(string: cards[1].downloadURL))
+                    AnimatedImage(url: URL(string: cards[safe: 1]?.downloadURL ?? ""))
                         .resizable()
                         .aspectRatio( contentMode: .fill)
                         .frame(width:  (width / 3), height:  (width / 3))

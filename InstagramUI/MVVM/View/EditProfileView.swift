@@ -16,7 +16,7 @@ struct EditProfileView: View {
     @State var website:String = ""
     @State var bio:String =  ""
     @State private var tabBar: UITabBar! = nil
-
+    
     
     fileprivate func ChoosePhoto() -> some View {
         HStack{
@@ -141,11 +141,11 @@ struct EditProfileView: View {
                     
                     
                     HStack{ Text("Business Infomation")
-                        .font(.system(size: 18))
-                        .fontWeight(.medium)
-                        .foregroundColor(.primary)
-                        .frame(alignment: .leading)
-                        .padding()
+                            .font(.system(size: 18))
+                            .fontWeight(.medium)
+                            .foregroundColor(.primary)
+                            .frame(alignment: .leading)
+                            .padding()
                         
                         Spacer()
                     }
@@ -202,22 +202,22 @@ struct EditProfileView: View {
             }
             
         }
-          
-           .background(Colors.theme1.contentDefaultColor)
-            .navigationBarTitle("")
-            .navigationBarHidden(true)
-            .onAppear {
-                name = userprofile.fullname ?? ""
-                username = userprofile.username ?? ""
-                website = userprofile.link ?? ""
-                bio = userprofile.bio ?? ""
-                
-               // TabbarView.shared.hidetabbar = true
-            }.onDisappear {
-               // TabbarView.shared.hidetabbar = false
-            }
-           
-     
+        
+        .background(Colors.theme1.contentDefaultColor)
+        .navigationBarTitle("")
+        .navigationBarHidden(true)
+        .onAppear {
+            name = userprofile.fullname ?? ""
+            username = userprofile.username ?? ""
+            website = userprofile.link ?? ""
+            bio = userprofile.bio ?? ""
+            
+            // TabbarView.shared.hidetabbar = true
+        }.onDisappear {
+            // TabbarView.shared.hidetabbar = false
+        }
+        
+        
         
     }
 }

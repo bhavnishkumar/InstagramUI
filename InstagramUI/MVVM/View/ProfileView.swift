@@ -269,7 +269,7 @@ struct ProfileView: View {
                 ForEach(1...15 ,id: \.self){index in
                     GeometryReader{proxy in
                         
-                        let width = proxy.frame(in: .global).width
+                        //   let width = proxy.frame(in: .global).width
                         let image =  "post\(index)"
                         
                         Button {
@@ -278,13 +278,10 @@ struct ProfileView: View {
                             Image(image)
                                 .resizable()
                                 .aspectRatio(contentMode: .fill)
-                                .frame(width: width, height:  width )
-                                .cornerRadius(3)
+                                .frame(width: (width / 3), height:  (width / 3) )
+                                .cornerRadius(4)
                         }
-                        
-                        
-                        
-                    }.frame(height: 120 )
+                    }.frame(height: (width / 3) )
                     
                 }
                 
@@ -304,20 +301,20 @@ struct ProfileView: View {
                     
                     GeometryReader{proxy in
                         
-                        let width = proxy.frame(in: .global).width
+                        //  let width = proxy.frame(in: .global).width
                         let image =  "post\(index)"
                         Button {
                             self.isToast = true
                         } label: {
                             
-                        Image(image)
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: width, height: 180)
-                            .cornerRadius(3)
-                        
+                            Image(image)
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: (width / 3), height: (width / 3) + 40)
+                                .cornerRadius(4)
+                            
                         }
-                    }.frame(height: 180)
+                    }.frame(height: (width / 3) + 40)
                 }
                 
             }.padding(8)
@@ -336,22 +333,22 @@ struct ProfileView: View {
                     
                     GeometryReader{proxy in
                         
-                        let width = proxy.frame(in: .global).width
+                        //   let width = proxy.frame(in: .global).width
                         let image =  "post\(index)"
                         
                         Button {
                             self.isToast = true
                         } label: {
                             
-                        Image(image)
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: width, height:  width )
-                            .cornerRadius(3)
+                            Image(image)
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width:  (width / 3), height:   (width / 3) )
+                                .cornerRadius(4)
                         }
                         
                         
-                    }.frame(height: 120)
+                    }.frame(height:  (width / 3))
                 }
                 
             }.padding(8)
@@ -361,13 +358,13 @@ struct ProfileView: View {
         }
         .tabViewStyle(.page(indexDisplayMode: .never))
         .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .never))
-        .frame(height: selectedTab != 1 ? 600  : 1000)
+        .frame(height: selectedTab != 1 ?  ((width / 3) * 5) + 20  :  (((width / 3) + 40) * 5) + 20)
     }
     
     
     
     var body: some View {
-      //  NavigationView {
+        //  NavigationView {
         VStack{
             HeaderView()
             GeometryReader{proxy -> Color in
@@ -397,7 +394,7 @@ struct ProfileView: View {
                     let minY = proxy.frame(in: .global).minY
                     print("minY:\(minY)")
                     
-//                    print("stickyHeaderOffset:\(stickyHeaderOffset)")
+                    //                    print("stickyHeaderOffset:\(stickyHeaderOffset)")
                     let offset =   minY - stickyHeaderOffset
                     print("offset:\(offset)")
                     return AnyView(
@@ -416,11 +413,11 @@ struct ProfileView: View {
                         }.frame( height: 45,alignment: .bottom)
                             .padding(0)
                             .background(Colors.backrground.contentDefaultColor)
-                            //   .offset(y: offset < 0 ? -offset : 0)
+                        //   .offset(y: offset < 0 ? -offset : 0)
                     )
                     
                 }.frame( height: 45)
-                  //  .zIndex(4)
+                //  .zIndex(4)
                 
                 Grids()
                 
@@ -437,12 +434,12 @@ struct ProfileView: View {
             }.hidden()
         }
         .navigationTitle("")
-       .navigationBarHidden(true)
+        .navigationBarHidden(true)
         .background(Colors.theme1.contentDefaultColor)
         .overlay(overlayView: Banner.init(data: Banner.BannerDataModel(title: "Instagram", detail: "You have clicked on Item", type: .info), show: $isToast)
                  , show: $isToast)
-        }
-           
+    }
+    
     
 }
 

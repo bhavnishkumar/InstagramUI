@@ -22,7 +22,7 @@ class SearchViewModel:ObservableObject{
     
     ///MARK:- read local json file store data in userprofile object
     func loadData()  {
-        let url = "https://picsum.photos/v2/list?page=2&limit=50"
+        let url = "https://picsum.photos/v2/list?page=2&limit=100"
         
         let session = URLSession(configuration: .default)
         session.dataTask(with: URL.init(string: url)!) { data, response, error in
@@ -46,17 +46,24 @@ class SearchViewModel:ObservableObject{
         var compositionalArr : [Card] = []
         cards.forEach { card in
             compositionalArr.append(card)
-            if compositionalArray.count % 2 == 0{
+            if compositionalArray.count % 2 == 0 ||  compositionalArray.count % 3 == 0{
                 if compositionalArr.count == 5{
+                    
+                    print("index :\(compositionalArray.count)")
+                    print("elements :\(compositionalArr.count)")
                     compositionalArray.append(compositionalArr)
                     compositionalArr.removeAll()
-                }
-            }else{
-                if compositionalArr.count == 5{
-                    compositionalArray.append(compositionalArr)
-                    compositionalArr.removeAll()
+                    
                 }
                 
+            }else{
+                if compositionalArr.count == 3{
+                    print("index :\(compositionalArray.count)")
+                    print("elements :\(compositionalArr.count)")
+                    compositionalArray.append(compositionalArr)
+                    compositionalArr.removeAll()
+                    
+                } 
             }
         }
         

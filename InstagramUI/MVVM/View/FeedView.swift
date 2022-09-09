@@ -19,6 +19,7 @@ struct FeedView: View {
                     .resizable()
                     .aspectRatio( contentMode: .fit)
                     .frame(width: 180, height: 46, alignment: .leading)
+                    .foregroundColor(.primary)
                 
                 
                 Spacer(minLength: 0)

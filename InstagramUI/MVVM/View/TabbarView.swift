@@ -14,6 +14,7 @@ struct TabbarView: View {
     }
     
     @State private var selectedTab = Tab.first
+    @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
         // Your native TabView here
@@ -47,7 +48,7 @@ struct TabbarView: View {
             }.navigationBarTitle("")
                 .navigationBarHidden(true)
                 .overlay( // Overlay the custom TabView component here
-                    Color.white // Base color for Tab Bar
+                    (colorScheme == .dark ?  Color.black :  Color.white)// Base color for Tab Bar
                         .edgesIgnoringSafeArea(.vertical)
                         .frame(height: 50) // Match Height of native bar
                         .overlay(HStack {

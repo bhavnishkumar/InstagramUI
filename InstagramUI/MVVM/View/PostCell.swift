@@ -14,6 +14,7 @@ struct PostCell: View {
     @State var liked = false
     @State var saveFeed = false
     var likedcallback : (Bool) -> ()
+    @Environment(\.colorScheme) var colorScheme
     
     var header: some View {
         HStack {
