@@ -22,7 +22,7 @@ class SearchViewModel:ObservableObject{
     
     ///MARK:- read local json file store data in userprofile object
     func loadData()  {
-        let url = "https://picsum.photos/v2/list?page=2&limit=100"
+        let url = "https://picsum.photos/v2/list?page=2&limit=60"
         
         let session = URLSession(configuration: .default)
         session.dataTask(with: URL.init(string: url)!) { data, response, error in
