@@ -10,9 +10,7 @@ import Foundation
 class SearchViewModel:ObservableObject{
     
     @Published var cards: [Card] = []
-    
     @Published var search: String = ""
-    
     @Published var compositionalArray: [[Card]] = []
     
     init(){
@@ -26,6 +24,7 @@ class SearchViewModel:ObservableObject{
         
         let session = URLSession(configuration: .default)
         session.dataTask(with: URL.init(string: url)!) { data, response, error in
+            
             if error != nil{
                 print(error?.localizedDescription ?? "")
             }

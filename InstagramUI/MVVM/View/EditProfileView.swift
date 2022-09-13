@@ -78,8 +78,7 @@ struct EditProfileView: View {
                         
                     }
                 }.padding([.horizontal,.top])
-                
-                
+                   
             }
             
             //Scroll Outside wrapper
@@ -202,7 +201,6 @@ struct EditProfileView: View {
             }
             
         }
-        
         .background(Colors.theme1.contentDefaultColor)
         .navigationBarTitle("")
         .navigationBarHidden(true)
@@ -216,8 +214,5 @@ struct EditProfileView: View {
         }.onDisappear {
             // TabbarView.shared.hidetabbar = false
         }
-        
-        
-        
     }
 }
