@@ -6,3 +6,10 @@
 //
 
 import Foundation
+
+
+
+struct UserLoginModel:Encodable{
+    var email: String
+    var password: String
+}

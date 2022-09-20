@@ -6,6 +6,8 @@
 //
 
 import XCTest
+@testable import InstagramUI
+
 
 class InstagramUITests: XCTestCase {
 
@@ -21,6 +23,65 @@ class InstagramUITests: XCTestCase {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
     }
+    
+   
+    func testUserLoginModelStruc_canCreateNewInstance() {
+        let sut = UserLoginModel.init(email: "", password: "")
+           XCTAssertNotNil(sut)
+    }
+    
+    //Check email empty
+    func testUserEmailEmpty_validatecheck(){
+        let viewModel = LoginViewModel()
+        
+        viewModel.credentials = UserLoginModel.init(email: "", password: "2434")
+        
+        let validationResult = viewModel.validatatioinCheck()
+        XCTAssertFalse(validationResult.isValid)
+        XCTAssertNotNil(validationResult.message)
+        XCTAssertEqual(validationResult.message, "email cannot be empty")
+        
+    }
+    
+    //Check email valid
+    func testUserEmailValid_validatecheck(){
+        let viewModel = LoginViewModel()
+        
+        viewModel.credentials = UserLoginModel.init(email: "ab@", password: "2434")
+        let validationResult = viewModel.validatatioinCheck()
+        XCTAssertFalse(validationResult.isValid)
+        XCTAssertNotNil(validationResult.message)
+        XCTAssertEqual(validationResult.message, "enter valid email")
+        
+    }
+    
+    
+
+    //Check password empty
+    func testUserPasswordEmpty_validatecheck(){
+        let viewModel = LoginViewModel()
+        
+        viewModel.credentials = UserLoginModel.init(email: "ab@gmail.com", password: "")
+        let validationResult = viewModel.validatatioinCheck()
+        XCTAssertFalse(validationResult.isValid)
+        XCTAssertNotNil(validationResult.message)
+        XCTAssertEqual(validationResult.message, "password cannot be empty")
+        
+    }
+    
+    
+    //Check password valid
+    func testUserPasswordValid_validatecheck(){
+        let viewModel = LoginViewModel()
+        
+        viewModel.credentials = UserLoginModel.init(email: "ab@gmail.com", password: "34234")
+        let validationResult = viewModel.validatatioinCheck()
+        XCTAssertFalse(validationResult.isValid)
+        XCTAssertNotNil(validationResult.message)
+        XCTAssertEqual(validationResult.message, "enter valid password")
+        
+    }
+    
 
     func testPerformanceExample() throws {
         // This is an example of a performance test case.

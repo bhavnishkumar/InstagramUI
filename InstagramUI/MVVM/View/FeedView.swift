@@ -26,7 +26,7 @@ struct FeedView: View {
                 Button(action: {}) {
                     Image("add")
                         .resizable()
-                        .frame(width: 25, height: 25)
+                        .frame(width: 28, height: 28)
                         .aspectRatio( contentMode: .fit)
                         .foregroundColor(.primary)
                     
@@ -34,7 +34,7 @@ struct FeedView: View {
                 Button(action: {}) {
                     Image("messenger")
                         .resizable()
-                        .frame(width: 25, height: 25)
+                        .frame(width: 28, height: 28)
                         .aspectRatio( contentMode: .fit)
                         .foregroundColor(.primary)
                     

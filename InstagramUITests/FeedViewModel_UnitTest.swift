@@ -17,8 +17,16 @@ class FeedViewModel_UnitTest: XCTestCase {
         @ObservedObject var viewModel = FeedViewModel()
         XCTAssertNotNil(viewModel.feedlist)
         XCTAssertNotNil(viewModel.hightlights)
-        XCTAssertTrue(true)
+        XCTAssertTrue(false)
         
+    }
+    
+    
+    func testPerformanceExample() throws {
+        // This is an example of a performance test case.
+        measure {
+            test_Request_Returns_Response()
+        }
     }
 
 

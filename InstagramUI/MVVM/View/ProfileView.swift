@@ -425,10 +425,7 @@ struct ProfileView: View {
             
             
             NavigationLink(destination: EditProfileView( userprofile: self.viewModel.userprofile!)
-                           //                                .onAppear { self.tabBar.isHidden = true }     // !!
-                           //                                .onDisappear { self.tabBar.isHidden = false } // !!
-                           //
-                           
+                    
                            , isActive: self.$isEditProfile) {
                 EmptyView()
             }.hidden()

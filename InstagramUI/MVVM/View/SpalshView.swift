@@ -11,7 +11,8 @@ struct SpalshView: View {
     @State var isActive:Bool = false
     var body: some View {
         if self.isActive {
-            TabbarView()
+           // TabbarView()
+            LoginView()
         } else {
             VStack{
                 GeometryReader { gp in
