@@ -10,14 +10,13 @@ import SwiftUI
 struct LoginView: View {
     
     
-    @State var emailID:String = "bhavnish60@gmail.com"
-    @State var password:String = "Bhavnish@1234"
+    @State var emailID:String = ""
+    @State var password:String = ""
     @ObservedObject var viewModel = LoginViewModel()
-    
+    @State private var showShareSheet = false
     var line: some View {
         VStack { Divider().background(.gray) }.padding()
     }
-    
     
     var body: some View {
         
@@ -60,6 +59,7 @@ struct LoginView: View {
                             RoundedRectangle(cornerRadius: 5)
                                 .stroke(Color.gray.opacity(0.3), lineWidth: 1))
                         .font(.system(size: 14))
+                        .accessibilityIdentifier("email_textfield")
                     
                     SecureField("Password", text: $password)
                         .frame(height: 25)
@@ -69,6 +69,7 @@ struct LoginView: View {
                             RoundedRectangle(cornerRadius: 5)
                                 .stroke(Color.gray.opacity(0.3), lineWidth: 1))
                         .font(.system(size: 14))
+                        .accessibilityIdentifier("password_textfield")
                     
                     Button(action: {}) {
                         Text("Forgot Password?")
@@ -87,7 +88,7 @@ struct LoginView: View {
                         
                         viewModel.credentials = UserLoginModel.init(email: emailID, password:  password)
                         viewModel.loginApi()
-                    
+                        
                     }) {
                         Text("Login")
                             .font(.system(size: 13))
@@ -98,6 +99,7 @@ struct LoginView: View {
                         .foregroundColor(Color.white)
                         .background(Color.blue)
                         .cornerRadius(8)
+                        .accessibilityIdentifier("loginButton")
                     
                     
                     HStack{
@@ -134,7 +136,10 @@ struct LoginView: View {
                     Text("Don't have an account?")
                         .font(.system(size: 15))
                     
-                    Button(action: {}) {
+                    Button(action: {
+                        
+                        showShareSheet = true
+                    }) {
                         Text("Signup.")
                             .font(.system(size: 15))
                         
@@ -145,8 +150,13 @@ struct LoginView: View {
                     
                     
                 }.frame(alignment: .bottom)
-            }.navigationTitle("")
-                .navigationBarHidden(true)
+            }.sheet(isPresented: $showShareSheet) {
+                ShareSheet(activityItems: ["Hello World"])
+            }
+            .navigationTitle("")
+            .navigationBarHidden(true)
+            .overlay(overlayView: Banner.init(data: Banner.BannerDataModel(title: "Login", detail: viewModel.errorMessage?.message ?? "", type: .error), show:$viewModel.isToast)
+                     , show: $viewModel.isToast)
         }
         
     }
@@ -155,5 +165,28 @@ struct LoginView: View {
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
         LoginView()
+    }
+}
+
+
+struct ShareSheet: UIViewControllerRepresentable {
+    typealias Callback = (_ activityType: UIActivity.ActivityType?, _ completed: Bool, _ returnedItems: [Any]?, _ error: Error?) -> Void
+    
+    let activityItems: [Any]
+    let applicationActivities: [UIActivity]? = nil
+    let excludedActivityTypes: [UIActivity.ActivityType]? = nil
+    let callback: Callback? = nil
+    
+    func makeUIViewController(context: Context) -> UIActivityViewController {
+        let controller = UIActivityViewController(
+            activityItems: activityItems,
+            applicationActivities: applicationActivities)
+        controller.excludedActivityTypes = excludedActivityTypes
+        controller.completionWithItemsHandler = callback
+        return controller
+    }
+    
+    func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {
+        // nothing to do here
     }
 }
