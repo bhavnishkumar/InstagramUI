@@ -14,9 +14,19 @@ struct LoginView: View {
     @State var password:String = ""
     @ObservedObject var viewModel = LoginViewModel()
     @State private var showShareSheet = false
+    @State var isLoginEnable:Bool = false
+    
+    @FocusState var focused: focusedField?
+    @State var showPassword: Bool = false
     var line: some View {
         VStack { Divider().background(.gray) }.padding()
     }
+    
+    
+    enum focusedField {
+        case secure, unSecure
+    }
+    
     
     var body: some View {
         
@@ -32,7 +42,9 @@ struct LoginView: View {
                         }) {
                             Image(uiImage: UIImage.init(named: "close")!)
                                 .resizable()
+                            
                                 .frame(width: 20, height: 20)
+                                .scaledToFit()
                                 .foregroundColor(.primary)
                             
                         }
@@ -51,7 +63,10 @@ struct LoginView: View {
                         .frame(width: 180, alignment: .leading)
                         .foregroundColor(.primary)
                     
-                    TextField("Phone Number,username or email", text:$emailID)
+                    TextField("Phone Number,username or email", text:$emailID.onChange({ (value) in
+                        isLoginEnable =  !emailID.isEmpty && !password.isEmpty
+                        
+                    }))
                         .frame(height: 25)
                         .padding(8)
                         .background(.gray.opacity(0.05))
@@ -60,16 +75,50 @@ struct LoginView: View {
                                 .stroke(Color.gray.opacity(0.3), lineWidth: 1))
                         .font(.system(size: 14))
                         .accessibilityIdentifier("email_textfield")
+                    HStack {
+                        ZStack(alignment: .trailing) {
+                            TextField("Password", text: $password)
+                                .focused($focused, equals: .unSecure)
+                                .autocapitalization(.none)
+                                .disableAutocorrection(true)
+                            // This is needed to remove suggestion bar, otherwise swapping between
+                            // fields will change keyboard height and be distracting to user.
+                                .keyboardType(.alphabet)
+                                .frame(height: 25)
+                                .padding(8)
+                                .background(.gray.opacity(0.05))
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 5)
+                                        .stroke(Color.gray.opacity(0.3), lineWidth: 1))
+                                .font(.system(size: 14))
+                                .opacity(showPassword ? 1 : 0)
+                            SecureField("Password", text: $password.onChange({ (value) in
+                                isLoginEnable =  !emailID.isEmpty && !password.isEmpty
+                            }))
+                                .frame(height: 25)
+                                .padding(8)
+                                .background(.gray.opacity(0.05))
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 5)
+                                        .stroke(Color.gray.opacity(0.3), lineWidth: 1))
+                                .font(.system(size: 14))
+                                .accessibilityIdentifier("password_textfield")
+                                .focused($focused, equals: .secure)
+                                .autocapitalization(.none)
+                                .disableAutocorrection(true)
+                                .opacity(showPassword ? 0 : 1)
+                            
+                            
+                            Button(action: {
+                                showPassword.toggle()
+                                focused = focused == .secure ? .unSecure : .secure
+                            }, label: {
+                                Image(systemName: self.showPassword ? "eye.slash.fill" : "eye.fill")
+                                    .padding()
+                            }).foregroundColor(Color.gray)
+                        }
+                    }
                     
-                    SecureField("Password", text: $password)
-                        .frame(height: 25)
-                        .padding(8)
-                        .background(.gray.opacity(0.05))
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 5)
-                                .stroke(Color.gray.opacity(0.3), lineWidth: 1))
-                        .font(.system(size: 14))
-                        .accessibilityIdentifier("password_textfield")
                     
                     Button(action: {}) {
                         Text("Forgot Password?")
@@ -97,23 +146,30 @@ struct LoginView: View {
                         
                     }.frame(maxWidth: .infinity,maxHeight: 45)
                         .foregroundColor(Color.white)
-                        .background(Color.blue)
+                        .background(isLoginEnable ?  Color.blue: Color.blue.opacity(0.4))
                         .cornerRadius(8)
                         .accessibilityIdentifier("loginButton")
-                    
+                        .disabled(!isLoginEnable)
                     
                     HStack{
                         line
                         Text("OR")
                             .font(.system(size: 13))
                             .fontWeight(.bold)
-                            .foregroundColor(.gray.opacity(0.5))
+                            .foregroundColor(.gray)
                         line
                     }
                     
                     HStack{
+                        
                         Button(action: {}) {
-                            Text("Continue as it_ur_bhuvi.")
+                            Image(uiImage: UIImage.init(named: "facebook_1")!)
+                                .resizable()
+                            
+                                .frame(width: 15, height: 15)
+                                .scaledToFit()
+                                .foregroundColor(.primary)
+                            Text("Continue as Bhavnish")
                                 .font(.system(size: 13))
                                 .fontWeight(.bold)
                             
@@ -188,5 +244,19 @@ struct ShareSheet: UIViewControllerRepresentable {
     
     func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {
         // nothing to do here
+    }
+}
+
+
+
+extension Binding {
+    func onChange(_ handler: @escaping (Value) -> Void) -> Binding<Value> {
+        Binding(
+            get: { self.wrappedValue },
+            set: { newValue in
+                self.wrappedValue = newValue
+                handler(newValue)
+            }
+        )
     }
 }

@@ -31,7 +31,7 @@ class InstagramUIUITests: XCTestCase {
         // Use XCTAssert and related functions to verify your tests produce the correct results.
     }
     
-    func testLogin() throws {
+    func testLogin()  {
         let app = XCUIApplication()
         //app.launchArguments = ["isRunningUITests"]
         app.launch()

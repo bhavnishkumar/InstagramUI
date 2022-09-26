@@ -26,5 +26,51 @@ extension String {
         let passwordValidation = NSPredicate.init(format: "SELF MATCHES %@", regularExpression)
         return passwordValidation.evaluate(with: self)
     }
+    
+    
+    var isAlphanumeric: Bool {
+            return !isEmpty && range(of: "[^a-zA-Z0-9]", options: .regularExpression) == nil
+        }
+    
+    
+    func isValidUsername() -> Bool {
+        guard self.count > 7, self.count < 18 else { return false }
+
+        let predicateTest = NSPredicate(format: "SELF MATCHES %@", "^(([^ ]?)(^[a-zA-Z].*[a-zA-Z]$)([^ ]?))$")
+        return predicateTest.evaluate(with: self)
+    }
+    
+    
+    
+    var isNumber: Bool {
+            return !isEmpty && rangeOfCharacter(from: CharacterSet.decimalDigits.inverted) == nil
+        }
+    
+    // mobile no. validation
+    func isValidPhoneNumber() -> Bool {
+
+        var returnValue = true
+        //        let mobileRegEx = "^[789][0-9]{9,11}$"
+        let mobileRegEx = "^[0-9]{10}$"
+
+        do {
+            let regex = try NSRegularExpression(pattern: mobileRegEx)
+            let nsString = self as NSString
+            let results = regex.matches(in: self, range: NSRange(location: 0, length: nsString.length))
+
+            if results.count == 0
+            {
+                returnValue = false
+            }
+
+        } catch let error as NSError {
+            print("invalid regex: \(error.localizedDescription)")
+            returnValue = false
+        }
+
+        return  returnValue
+    }
+    
+    
 }
 

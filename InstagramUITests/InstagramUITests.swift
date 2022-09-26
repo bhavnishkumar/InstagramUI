@@ -31,7 +31,7 @@ class InstagramUITests: XCTestCase {
     }
     
     //Check email empty
-    func testUserEmailEmpty_validatecheck(){
+    func test_UserEmailEmptyValidatecheck(){
         let viewModel = LoginViewModel()
         
         viewModel.credentials = UserLoginModel.init(email: "", password: "2434")
@@ -65,7 +65,7 @@ class InstagramUITests: XCTestCase {
         let validationResult = viewModel.validatatioinCheck()
         XCTAssertFalse(validationResult.isValid)
         XCTAssertNotNil(validationResult.message)
-        XCTAssertEqual(validationResult.message, "password cannot be empty")
+        XCTAssertEqual(validationResult.message, "Password cannot be empty")
         
     }
     
@@ -78,9 +78,38 @@ class InstagramUITests: XCTestCase {
         let validationResult = viewModel.validatatioinCheck()
         XCTAssertFalse(validationResult.isValid)
         XCTAssertNotNil(validationResult.message)
-        XCTAssertEqual(validationResult.message, "enter valid password")
+        XCTAssertEqual(validationResult.message, "Enter valid password")
         
     }
+    
+    
+    
+    //Check username valid
+    func testUserUserNameValid_validatecheck(){
+        let viewModel = LoginViewModel()
+        
+        viewModel.credentials = UserLoginModel.init(email: "2323424qweqwe", password: "Admin@34234")
+        let validationResult = viewModel.validatatioinCheck()
+        XCTAssertFalse(validationResult.isValid)
+        XCTAssertNotNil(validationResult.message)
+        XCTAssertEqual(validationResult.message, "Enter valid username")
+        
+    }
+    
+    
+    //Check phone number valid
+    func testUserPhoneValid_validatecheck(){
+        let viewModel = LoginViewModel()
+        
+        viewModel.credentials = UserLoginModel.init(email: "2323424", password: "Admin@34234")
+        let validationResult = viewModel.validatatioinCheck()
+        XCTAssertFalse(validationResult.isValid)
+        XCTAssertNotNil(validationResult.message)
+        XCTAssertEqual(validationResult.message, "Enter valid phone number")
+        
+    }
+    
+    
     
 
     func testPerformanceExample() throws {
