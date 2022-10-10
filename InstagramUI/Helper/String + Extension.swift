@@ -34,7 +34,7 @@ extension String {
     
     
     func isValidUsername() -> Bool {
-        guard self.count > 7, self.count < 18 else { return false }
+        guard self.count > 4, self.count < 18 else { return false }
 
         let predicateTest = NSPredicate(format: "SELF MATCHES %@", "^(([^ ]?)(^[a-zA-Z].*[a-zA-Z]$)([^ ]?))$")
         return predicateTest.evaluate(with: self)

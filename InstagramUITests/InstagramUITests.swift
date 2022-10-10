@@ -88,7 +88,7 @@ class InstagramUITests: XCTestCase {
     func testUserUserNameValid_validatecheck(){
         let viewModel = LoginViewModel()
         
-        viewModel.credentials = UserLoginModel.init(email: "2323424qweqwe", password: "Admin@34234")
+        viewModel.credentials = UserLoginModel.init(email: "234asdasd", password: "Admin@34234")
         let validationResult = viewModel.validatatioinCheck()
         XCTAssertFalse(validationResult.isValid)
         XCTAssertNotNil(validationResult.message)
